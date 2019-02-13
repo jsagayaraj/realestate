@@ -5,6 +5,7 @@ namespace App\Controller\Security;
 use App\Entity\User;
 
 use App\Form\UserType;
+use App\Repository\UserRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Routing\Annotation\Route;
@@ -30,7 +31,7 @@ class UserController extends AbstractController
            $manager->persist($user);
            $manager->flush();
            $this->addFlash('success', 'Vous êtes bien enregistré');
-           return $this->redirectToRoute('login');
+           return $this->redirectToRoute('admin_user_list');
         }else{
             return $this->render("security/registration.html.twig",[
                 'form' => $form->createView()
@@ -39,6 +40,7 @@ class UserController extends AbstractController
 
     }
 
+   
     /**
      * @Route("/connexion", name="security_login")
      */

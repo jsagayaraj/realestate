@@ -1,11 +1,28 @@
 {% extends "base.html.twig" %}
 {% block title  'Registration'%}
+  {% block stylesheets %}
+      <style>
+          .form-check {
+              position: relative;
+              display: inline-block;
+              padding-left: 1.25rem;
+          }
+
+          .form-check:last-child{
+              padding-left: 5rem;
+          }
+      </style>
+        
+  {% endblock %}
   {% block body %}
     {{ include("include/menu.html.twig") }}
     <div class="container">
-      <h1>Créer New Annonce</h1>
+      <h1>Registration</h1>
       {{form_start(form)}}
       <div class="row">
+          
+          {{form_row(form.gender)}}
+        
         <div class="col-md-6">
           {{form_row(form.firstname, 
                 {
@@ -21,40 +38,36 @@
           {{form_row(form.lastname)}}
         </div>
       </div>
+
       <div class="row">
         <div class="col-md-6">
           {{form_row(form.email)}}
         </div>
         <div class="col-md-6">
-          <div class="form-group">
-            {{form_row(form.password)}}
-          </div>
+          {{form_row(form.phoneNumber)}}
         </div>
       </div>
+
       <div class="row">
+        <div class="col-md-6">
+          {{form_row(form.password)}}
+        </div>
         <div class="col-md-6">
           {{form_row(form.confirmPassword)}}
         </div>
-        <div class="col-md-6">
-          <div class="form-group">
-            {{form_row(form.phoneNumber)}}
-          </div>
-        </div>
       </div>
+
+
       <div class="row">
         <div class="col-md-6">
-          {{form_row(form.gender)}}
-        </div>
-        <div class="col-md-6">
-          <div class="form-group">
-            {{form_row(form.city)}}
-          </div>
-        </div>
-      </div>
-      <div class="row">
+          {{form_row(form.city)}}
+        </div> 
         <div class="col-md-6">
           {{form_row(form.postalCode)}}
         </div>
+      </div>
+
+      <div class="row">
         <div class="col-md-6">
           {{form_row(form.address)}}
         </div>

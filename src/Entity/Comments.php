@@ -32,16 +32,16 @@ class Comments
     private $createdAt;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Property", inversedBy="comment")
-     */
-    private $property;
-
-    /**
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="comments")
-     * @ORM\JoinColumn(nullable=false)
      */
     private $user;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Property", inversedBy="comments")
+     */
+    private $property;
+
+  
     public function getId(): ?int
     {
         return $this->id;
@@ -83,6 +83,18 @@ class Comments
         return $this;
     }
 
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
     public function getProperty(): ?Property
     {
         return $this->property;
@@ -95,15 +107,4 @@ class Comments
         return $this;
     }
 
-    public function getUser(): ?User
-    {
-        return $this->user;
-    }
-
-    public function setUser(?User $user): self
-    {
-        $this->user = $user;
-
-        return $this;
-    }
 }

@@ -5,12 +5,18 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Cocur\Slugify\Slugify;
+
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\PropertyRepository")
  */
 class Property
 {
+    const HEAT = [
+        0 => 'Electrique',
+        1 => 'Gaz',
+    ];
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -39,11 +45,6 @@ class Property
     private $rooms;
 
     /**
-     * @ORM\Column(type="integer")
-     */
-    private $bedrooms;
-
-    /**
      * @ORM\Column(type="integer", nullable=true)
      */
     private $floor;
@@ -64,14 +65,9 @@ class Property
     private $price;
 
     /**
-     * @ORM\Column(type="datetime")
-     */
-    private $createdAt;
-
-    /**
      * @ORM\Column(type="boolean", options={"defaul":false})
      */
-    private $sold;
+    private $sold = 0;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -89,7 +85,7 @@ class Property
     private $postalCode;
 
     /**
-     * @ORM\Column(type="integer", nullable=true)
+     * @ORM\Column(type="boolean")
      */
     private $parking;
 
@@ -98,36 +94,36 @@ class Property
      */
     private $bathrooms;
 
+     /**
+     * @ORM\Column(type="datetime")
+     */
+    private $createdAt;
+
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Category")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Category", inversedBy="properties")
      * @ORM\JoinColumn(nullable=false)
      */
     private $category;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Type")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Type", inversedBy="properties")
      * @ORM\JoinColumn(nullable=false)
      */
     private $type;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="article")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $user;
-
-    /**
      * @ORM\OneToMany(targetEntity="App\Entity\Comments", mappedBy="property")
      */
-    private $comment;
+    private $comments;
+
 
     public function __construct()
     {
-        $this->comment = new ArrayCollection();
+        $this->comments = new ArrayCollection();
+        $this->createdAt = new \DateTime();
     }
-
+     
   
-   
     public function getId(): ?int
     {
         return $this->id;
@@ -144,7 +140,12 @@ class Property
 
         return $this;
     }
-
+    //slugyfy title
+    public function getSlug():string
+    {
+        $slugify = new Slugify();
+        return $slugify->slugify($this->title); 
+    }
     public function getDescription(): ?string
     {
         return $this->description;
@@ -181,18 +182,6 @@ class Property
         return $this;
     }
 
-    public function getBedrooms(): ?int
-    {
-        return $this->bedrooms;
-    }
-
-    public function setBedrooms(int $bedrooms): self
-    {
-        $this->bedrooms = $bedrooms;
-
-        return $this;
-    }
-
     public function getFloor(): ?int
     {
         return $this->floor;
@@ -217,6 +206,11 @@ class Property
         return $this;
     }
 
+    public function getHeatType():string
+    {
+        return self::HEAT[$this->heat];
+    }
+
     public function getSurface(): ?int
     {
         return $this->surface;
@@ -239,6 +233,11 @@ class Property
         $this->price = $price;
 
         return $this;
+    }
+
+    public function getFormatedPrice(): string
+    {
+        return number_format($this->price, 0, '', ' ');
     }
 
     public function getCreatedAt(): ?\DateTimeInterface
@@ -301,12 +300,12 @@ class Property
         return $this;
     }
 
-    public function getParking(): ?int
+    public function getParking(): ?bool
     {
         return $this->parking;
     }
 
-    public function setParking(?int $parking): self
+    public function setParking(bool $parking): self
     {
         $this->parking = $parking;
 
@@ -349,30 +348,18 @@ class Property
         return $this;
     }
 
-    public function getUser(): ?User
-    {
-        return $this->user;
-    }
-
-    public function setUser(?User $user): self
-    {
-        $this->user = $user;
-
-        return $this;
-    }
-
     /**
      * @return Collection|Comments[]
      */
-    public function getComment(): Collection
+    public function getComments(): Collection
     {
-        return $this->comment;
+        return $this->comments;
     }
 
     public function addComment(Comments $comment): self
     {
-        if (!$this->comment->contains($comment)) {
-            $this->comment[] = $comment;
+        if (!$this->comments->contains($comment)) {
+            $this->comments[] = $comment;
             $comment->setProperty($this);
         }
 
@@ -381,8 +368,8 @@ class Property
 
     public function removeComment(Comments $comment): self
     {
-        if ($this->comment->contains($comment)) {
-            $this->comment->removeElement($comment);
+        if ($this->comments->contains($comment)) {
+            $this->comments->removeElement($comment);
             // set the owning side to null (unless already changed)
             if ($comment->getProperty() === $this) {
                 $comment->setProperty(null);
@@ -392,6 +379,7 @@ class Property
         return $this;
     }
 
+  
 
 
  

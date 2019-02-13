@@ -2,14 +2,17 @@
 
 namespace App\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Security\Core\User\UserInterface;
+
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
  */
-class User
+class User implements UserInterface
 {
     /**
      * @ORM\Id()
@@ -35,18 +38,20 @@ class User
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Length(min="8", minMessage="Votre mod de pass doit faire minimum 8 caractères") 
+     * @Assert\EqualTo(propertyPath="confirmPassword")
      */
     private $password;
 
     /**
-     * @ORM\Column(type="boolean")
+     * @Assert\EqualTo(propertyPath="password", message="Vous n'avez pas tapé le même mot de        passe")
      */
-    private $Mr;
+    private $confirmPassword;
 
     /**
-     * @ORM\Column(type="boolean")
+     * @ORM\Column(type="string", length=255)
      */
-    private $Miss;
+    private $gender;
 
     /**
      * @ORM\Column(type="text")
@@ -69,18 +74,12 @@ class User
     private $phoneNumber;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Property", mappedBy="user")
-     */
-    private $article;
-
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Comments", mappedBy="user", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="App\Entity\Comments", mappedBy="user")
      */
     private $comments;
 
     public function __construct()
     {
-        $this->article = new ArrayCollection();
         $this->comments = new ArrayCollection();
     }
 
@@ -137,26 +136,24 @@ class User
         return $this;
     }
 
-    public function getMr(): ?bool
+    public function getConfirmPassword(): ?string
     {
-        return $this->Mr;
+        return $this->confirmPassword;
     }
 
-    public function setMr(bool $Mr): self
+    public function setConfirmPassword(string $confirmPassword): self
     {
-        $this->Mr = $Mr;
-
+        $this->confirmPassword = $confirmPassword;
         return $this;
     }
-
-    public function getMiss(): ?bool
+    public function getGender(): ?string
     {
-        return $this->Miss;
+        return $this->gender;
     }
 
-    public function setMiss(bool $Miss): self
+    public function setGender(string $gender): self
     {
-        $this->Miss = $Miss;
+        $this->gender = $gender;
 
         return $this;
     }
@@ -210,37 +207,6 @@ class User
     }
 
     /**
-     * @return Collection|Property[]
-     */
-    public function getArticle(): Collection
-    {
-        return $this->article;
-    }
-
-    public function addArticle(Property $article): self
-    {
-        if (!$this->article->contains($article)) {
-            $this->article[] = $article;
-            $article->setUser($this);
-        }
-
-        return $this;
-    }
-
-    public function removeArticle(Property $article): self
-    {
-        if ($this->article->contains($article)) {
-            $this->article->removeElement($article);
-            // set the owning side to null (unless already changed)
-            if ($article->getUser() === $this) {
-                $article->setUser(null);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
      * @return Collection|Comments[]
      */
     public function getComments(): Collection
@@ -270,4 +236,15 @@ class User
 
         return $this;
     }
+
+    public function getRoles()
+    {
+        return ['ROLE_USER'];
+    }   
+    public function getSalt(){}
+
+    public function eraseCredentials(){}
+  
+  
+    public function getUsername(){}
 }
