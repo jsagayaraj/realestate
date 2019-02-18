@@ -1,0 +1,13 @@
+{% extends "base.html.twig" %}
+{% block title 'User List'%}
+{% block body %}
+    <div class="container"><br><br>
+     
+      <h1>Modifier le type </h1>
+        {{form_start(form)}}
+        {{form_widget(form)}}
+        <button type="submit" class="btn btn-primary">Modifier type</button>
+        {{form_end(form)}}
+    </div>
+{% endblock %}
+    

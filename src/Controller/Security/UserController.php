@@ -31,7 +31,7 @@ class UserController extends AbstractController
            $manager->persist($user);
            $manager->flush();
            $this->addFlash('success', 'Vous êtes bien enregistré');
-           return $this->redirectToRoute('admin_user_list');
+           return $this->redirectToRoute('security_login');
         }else{
             return $this->render("security/registration.html.twig",[
                 'form' => $form->createView()
@@ -53,7 +53,9 @@ class UserController extends AbstractController
      * @Route("/deconnexion", name="security_logout")
      */
 
-     public function logout(){}
+     public function logout(){
+         return $this-render("home/index.html.twig");
+     }
 
 
 

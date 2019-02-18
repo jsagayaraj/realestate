@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+
+{# include menu #}
+{% include "include/menu.html.twig" %}
+
+ {# include header #}
+ {% include "include/header.html.twig" %}
+
+<div class="container">
+<section class="news-box top-margin">
+  <div class="container">
+    <div class="row">
+      <div class="section-heading">
+        <h2>Profil</h2>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt.</p>
+        <ul>
+            <li>Nom: {{app.user.lastname}}</li>
+        </ul>
+      </div>
+    </div>
+    </div>
+</section>
+   
+          
+</div>
+
+
+
+
+
+
+
+
+{# include footer #}
+{% include "include/footer.html.twig" %}
+
+{% endblock %}

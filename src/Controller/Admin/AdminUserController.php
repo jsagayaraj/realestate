@@ -8,12 +8,23 @@ use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class AdminUserController extends AbstractController
 {
+    /**
+     * @Route("/admin", name="admin")
+     * 
+     */
+    public function adminPage()
+    {
+        return $this->render('admin/index.html.twig');
+    }
 
-     /**
+
+
+    /**
     * @Route("/admin/userList", name="admin_user_list")
     */
 
@@ -28,36 +39,41 @@ class AdminUserController extends AbstractController
         ]);
     }
 
+    /**
+     * @Route("/profil", name="profil")
+     */
+    public function profile()
+    {
+        $user = $this->getUser();
+        dump($user);
+        return $this->render("home/profil.html.twig", [
+            'user' => $user
+        ]);
+    }
 
     // /**
     // * @Route("/admin/editUser/{id}", name="admin_edit_user")
     // */
 
-    // public function editUser(User $user, UserRepository $repo)
+    // public function editUser(User $user, UserRepository $repo, ObjectManager $em)
     // {
-        
-    //     dump($user);
-    //     return $this->render("admin/edit_user.html.twig",[
-    //         'users' => $user
-            
-    //     ]);
-    // }
-
-
-    // /**
-    //  * @Route("/admin/{id}", name="admin_user_delete")
-    //  * 
-    //  */
-    // public function deleteUser (User $user, ObjectManager $em, Request $request)
-    // {
-    //     if($this->isCsrfTokenValid('delete' . $user->getId(), $request->get('_token')))
+    //     $form = $this->createFrom(UserType::class, $user);
+    //     $form->handleRequests($request);
+    //     if($form->isSubmittet() && $form->isValid())
     //     {
-    //         //dump('suppression');
-    //         $em->remove($user);
+    //         $user = $form->getUser();
+    //         dump($user);
+    //         $em->persist($user);
     //         $em->flush();
-    //         return new Response('Suppression');
-    //         $this->addFlash('success', 'Bien supprimé avec succés');
+
+    //     }else{
+    //         return $this->render("admin/edit_user.html.twig",[
+    //             'form' => $form->createView()
+    //         ]);
     //     }
-    //     return $this->redirectToRoute('admin_user_delete');
+
     // }
+
+
+   
 }

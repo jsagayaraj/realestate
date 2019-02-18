@@ -19,7 +19,7 @@
                     <td>Adress</td>
                     <td>City</td>
                     <td>Code Postal</td>
-                    <td>Action</td>
+                    
                 </tr>
             </thead>
             <tbody>
@@ -32,19 +32,11 @@
                         <td>{{user.lastname}}</td>
                         <td>{{user.firstname}}</td>
                         <td>{{user.email}}</td>
-                        <td>{{user.phoneNumber}}</td>
+                        <td>0{{user.phoneNumber}}</td>
                         <td>{{user.address}}</td>
                         <td>{{user.city}}</td>
                         <td>{{user.postalCode}}</td>
-                        <td>
-                            {# <a class="text-primary" href="{{path('admin_edit_user', {'id':user.id})}}" style="display:inline-block; font-weight:bold;">Edit</a> || #}
-                            {# Pour delete #}
-                            <form method="post" action="{{path('admin_user_delete', {'id':user.id})}}" style="display:inline-block;">
-                                <input name="_method" type="hidden" value="DELETE">
-                                <input type="hidden" name="_token" value="{{csrf_token('delete' ~ user.id)}}">
-                                <button type="submit" class="btn btn-danger" onclick="return confirm('Etes vous vraiment sûr?')">Delete</button>
-                            </form>
-                        </td>
+                     
                     </tr>
                 {% endfor %}
             </tbody>

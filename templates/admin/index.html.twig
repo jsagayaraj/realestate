@@ -1,0 +1,40 @@
+{% extends "base.html.twig" %}
+
+{% block title  'Contact' %}
+{% block body %}
+{# include menu #}
+{% include "include/menu.html.twig" %}
+    <header id="head" class="secondary">
+		<div class="container">
+			<div class="row">
+				<h1>Admin Page</h1>
+			</div>
+		</div>
+	</header>
+    <br><br><br>
+	<!-- container -->
+	<div class =" container">
+        
+        <div class="row">
+            <div class="col-md-4">
+                <div class="btn-group-vertical" role="group">
+                    
+                    <ul class="nav nav-pills nav-stacked">
+                        <li role="presentation"><a href="{{path('admin_user_list')}}" class="btn btn-default">User</a></li>
+                        <li role="presentation"><a href="{{path('admin_property_list')}}" class="btn btn-default">Property</a></li>
+                        <li role="presentation"><a href="{{path('admin_show_cat')}}" class="btn btn-default">Category</a></li>
+                        <li role="presentation"><a href="{{path('admin_show_type')}}" class="btn btn-default">Type</a></li>
+                    </ul>
+                </div>
+                </div>
+            <div class="col-md-8">
+            </div>
+        </div>
+    </div>
+
+    <!-- container -->
+
+{# include footer #}
+{% include "include/footer.html.twig" %}
+
+{% endblock %}

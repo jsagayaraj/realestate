@@ -34,18 +34,21 @@
 			</div>
 			<div class="navbar-collapse collapse">
 				<ul class="nav navbar-nav pull-right mainNav">
+					<li><a href="{{path('admin')}}">Admin</a></li>
 					<li class="active"><a href="{{path('home')}}">Home</a></li>
-					<li><a href="{{path('about')}}">About</a></li>
-					<li><a href="#">Services</a></li>
 					
-					<li><a href="{{path('registration')}}">New</a></li>
+					<li class="active"><a href="{{path('annonces')}}">Annonce</a></li>
+					<li><a href="{{path('about')}}">About</a></li>
+					
 					
 					<li><a href="{{path('contact')}}">Contact</a></li>
+
 					{% if not app.user %}
+						<li><a href="{{path('registration')}}">Inscription</a></li>
 						<li><a href="{{path('security_login')}}">Connexion</a></li>
 					
 					{% else %}
-						
+						<li><a href="{{path('profil')}}">Profil</a></li>
 						<li><a href="{{path('security_logout')}}">Deconnexion</a></li>
 					{% endif %}
 					

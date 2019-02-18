@@ -1,5 +1,5 @@
 {% extends "base.html.twig" %}
-{% block title 'User List'%}
+{% block title %}Property List {% endblock %}
   {% block body %}
     <div class="container">
       {% for message in app.flashes('success') %}
@@ -7,10 +7,13 @@
           {{message}}</div>
       {% endfor %}
       <h1>Properties ({{properties | length()}})</h1>
-      <table class="table  table-striped">
+      <div class="text-right"><a href="{{path('admin_new_property')}}" class="btn btn-success">Add New Annonce</a></div>
+      <table class="table  table-striped table-responsive">
         <thead>
           <tr>
             <td>Id</td>
+            <td>Category</td>
+            <td>Type</td>
             <td>Title</td>
             <td>Description</td>
             <td>Photo</td>
@@ -19,6 +22,7 @@
             <td>Etege</td>
             <td>Surface</td>
             <td>Prix</td>
+            <td>Energie</td>
             <td>Creation Date</td>
             <td>Vendu</td>
             <td>Ville</td>
@@ -34,23 +38,27 @@
             {% set id = id+1 %}
             <tr>
               <td>{{id}}</td>
+              <td>{{property.category.title}}</td>
+              <td>{{property.type.title}}</td>
               <td>{{property.title}}</td>
-              <td>{{property.description}}</td>
-              <td>{{property.image}}</td>
+              <td>{{property.description | slice(0,50)}}. . . </td>
+              <td>
+              <img src="{{asset('uploads/') ~ property.image}}" class="img-thumbnail" alt="{{property.title}}">
+              </td>
               <td>{{property.rooms}}</td>
               <td>{{property.bathrooms}}</td>
               <td>{{property.floor}}</td>
-              <td>{{property.heat}}</td>
               <td>{{property.surface}}</td>
-              <td>{{property.formatedPrice()}}</td>
-              {# <td>{{property.createdAt}}</td> #}
+              <td>{{property.price}}</td>
+              <td>{{property.heat}}</td>
+              <td>{{property.createdAt | date('d/m/Y - H:i')}}</td>
               <td>{{property.sold}}</td>
               <td>{{property.city}}</td>
               <td>{{property.address}}</td>
               <td>{{property.postalCode}}</td>
               <td>{{property.parking}}</td>
               <td>
-                <a class="text-primary" href="" style="display:inline-block; font-weight:bold;">Edit</a> || 
+                <a class="text-primary" href="{{path('admin_edit_property', {'id':property.id})}}" style="display:inline-block; font-weight:bold;">Edit</a> || 
                 {# Pour delete #}
                   <form method="post" action="{{path('admin_property_delete', {'id':property.id})}}" style="display:inline-block;"> <input name="_method" type="hidden" value="DELETE">
                     <input type="hidden" name="_token" value="{{csrf_token('delete' ~ property.id)}}">

@@ -1,0 +1,52 @@
+{% extends "base.html.twig" %}
+{% block title 'Annonce Vendre' %}
+
+{% block body %}
+{# include menu #}
+{% include "include/menu.html.twig" %}
+
+
+    <header id="head" class="secondary">
+        <div class="container">
+            <div class="row">
+                <h1>Vendre</h1>
+            </div>
+        </div>
+    </header>
+
+    <!-- container -->
+    <section class="container">
+        <div class="row">
+            <!-- main content -->
+            {% for annonce in annonce_vendre %}
+            <div class="col-lg-4 col-md-4 col-sm-12">
+                <div class="newsBox">
+                <div class="thumbnail">
+                    <figure>
+                    <img alt="" src="{{asset('uploads/')~ annonce.image}} "></figure>
+                    <div class="caption maxheight2">
+                        <div class="box_inner">
+                        <div class="box">
+                            <p class="title">
+                            <strong>{{annonce.title}}</strong>
+                            </p>
+                            <p>Lorem ipsum dolor sit amet, conc tetu er adipi scing. Praesent ves tibuum molestie lacuiirhs. Aenean.</p>
+                        </div>
+                        <div>
+                            <a class="btn-inline" href="#">more</a>
+                        </div>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %} 
+            <!-- /main -->
+        </div>
+    </section>
+  
+
+    {# include footer #}
+{% include "include/footer.html.twig" %}
+
+{% endblock %}

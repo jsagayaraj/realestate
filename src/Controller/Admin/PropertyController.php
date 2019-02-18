@@ -2,49 +2,57 @@
 
 namespace App\Controller\Admin;
 
-use App\Entity\User;
+
 use App\Entity\Property;
-use App\Repository\UserRepository;
+
+use App\Form\PropertyType;
 use App\Repository\PropertyRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class PropertyController extends AbstractController
 {
+  /********************************CREATE NEW PROPERTY ***************************/
+  /**
+   * @Route("/admin/newProperty", name="admin_new_property")
+   */
+  public function newProperty(Request $request, ObjectManager $manager)
+  {
+    $property = new Property();
+    $form = $this->createForm(PropertyType::class, $property);
+            $form->handleRequest($request);
 
-  // /**
-  //  * @Route("/admin/newProperty", name="admin_new_property")
-  //  */
-  // public function newProperty(Request $request, ObjectManager $manager)
-  // {
-  //   $property = new Property();
-  //   $form = $this->createForm(PropertyType::class, $property);
-  //   $form->handleRequest($request);
+     if($form->isSubmitted() && $form->isValid())
+      {
+        $file = $property->getImage(); 
+        $fileName = md5(uniqid()).'.'.$file->guessExtension(); 
+        $file->move($this->getParameter('photos_directory'), $fileName); 
+        $property->setImage($fileName);
 
-  //    if($form->isSubmitted() && $form->isValid())
-  //     {
-  //       $manager->persist($property);
-  //       $manager->flush();
-  //       $this->addFlash('success', 'Bien creer avec succés');
-  //       return $this->redirectToRoute('home');     
-  //       //dump($result);
-  //     }
-  //       else {
-  //         return $this->render('Admin/property/new.html.twig',[
-  //           //'property' => $property,
-  //         'form'=> $form->createView()
-  //       ]);
-  //     }
-  //   }
-  // }
+        $manager->persist($property);
+        $manager->flush();
+        $this->addFlash('success', 'Bien creer avec succés');
+        return $this->redirectToRoute('admin_property_list');     
+        //dump($result);
+      }
+        else {
+          return $this->render('Admin/property/new.html.twig',[
+          //'property' => $property,
+          'form'=> $form->createView()
+        ]);
+      }
+  }
+  
 
-
+/********************************SHOW PROPERTY ***************************/
 
   /**
-   * @Route("/admin/propertyList", name="admin_property_list")
+   * @Route("/admin/showProperties", name="admin_property_list")
+   * 
    */
   public function showProperty(PropertyRepository $repo)
   {
@@ -56,22 +64,60 @@ class PropertyController extends AbstractController
 
   }
 
+  /********************************EDIT PROPERTY ***************************/
 
   /**
-     * @Route("/admin/{id}", name="admin_property_delete")
-     * 
-     */
-    public function deleteUser (Property $property, ObjectManager $em, Request $request)
-    {
-        if($this->isCsrfTokenValid('delete' . $property->getId(), $request->get('_token')))
-        {
-            //dump('suppression');
-            $em->remove($property);
-            $em->flush();
-            //return new Response('Suppression');
-            $this->addFlash('success', 'Bien supprimé avec succés');
-        }
-        return $this->redirectToRoute('admin_property_list');
+   * @Route("/admin/editProp/{id}", name="admin_edit_property")
+   * 
+   */
+  public function editProperty(Property $property, ObjectManager $em, Request $request)
+  {
+    $property->setImage(new File($this->getParameter('photos_directory'). '/'.$property->getImage()));
+    $form = $this->createForm(PropertyType::class, $property);
+            $form->handleRequest($request);
+
+    if($form->isSubmitted() && $form->isValid()){
+      //$property = $form->getData();
+      // dump($property);
+      // die();
+      
+      $file = $property->getImage(); 
+      $fileName = md5(uniqid()).'.'.$file->guessExtension(); 
+      $file->move($this->getParameter('photos_directory'), $fileName); 
+
+      $em->persist($property);
+      $em->flush();
+      $this->addFlash('success', 'Bien modifieé l\'annonce');
+        return $this->redirectToRoute('admin_property_list');    
+    }else{
+      return $this->render("admin/property/edit.html.twig", [
+        'form' => $form->createView()
+        //'properties' => $property
+      ]);
     }
     
+
+  }
+  /********************************DELETE PROPERTY ***************************/
+
+  /**
+   * @Route("/admin/{id}", name="admin_property_delete")
+   *
+   * 
+   */
+  public function deleteUser (Property $property, ObjectManager $em, Request $request)
+  {
+      if($this->isCsrfTokenValid('delete' . $property->getId(), $request->get('_token')))
+      {
+          //dump('suppression');
+          $em->remove($property);
+          $em->flush();
+          //return new Response('Suppression');
+          $this->addFlash('success', 'Bien supprimé avec succés');
+      }
+      return $this->redirectToRoute('admin_property_list');
+  }
+    
 }
+
+

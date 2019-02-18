@@ -47,4 +47,92 @@ class PropertyRepository extends ServiceEntityRepository
         ;
     }
     */
+    /* find all annonce by decending order */
+    public function findAllAnnonceByDESC(){
+        return $this->createQueryBuilder('p')
+            ->orderBy('p.id', 'DESC')
+            ->getQuery()
+            ->getResult()
+        ;
+
+    }
+
+    /* find all announce louer */
+
+    public function findAllAnnonceLouer()
+    {
+        return $this->createQueryBuilder('p')
+                    ->addSelect('c')
+                    ->join('p.category', 'c')
+                    ->andWhere("c.title = 'Louer'")
+                    ->orderBy('p.id', 'DESC')
+                    //->setMaxResults(3)
+                    ->getQuery()
+                    ->getResult()
+                    ;
+    }
+
+     /* find all announce vendre */
+
+     public function findAllAnnonceVendre()
+     {
+         return $this->createQueryBuilder('p')
+                     ->addSelect('c')
+                     ->join('p.category', 'c')
+                     ->andWhere("c.title = 'Vendre'")
+                     ->orderBy('p.id', 'DESC')
+                     //->setMaxResults(3)
+                     ->getQuery()
+                     ->getResult()
+                     ;
+     }
+
+
+     /****************************** * FIND ALL APPARTEMENTS ************************************/
+
+    public function findAllAppartement()
+    {
+        return $this->createQueryBuilder('p')
+                    ->addSelect('t')
+                    ->join('p.type', 't')
+                    ->andWhere("t.title = 'Appartements'")
+                    ->orderBy('p.id', 'DESC')
+                    //->setMaxResults(3)
+                    ->getQuery()
+                    ->getResult()
+                    ;
+    }
+
+
+      /****************************** * FIND ALL MAISON ************************************/
+
+      public function findAllMaison()
+      {
+          return $this->createQueryBuilder('p')
+                      ->addSelect('t')
+                      ->join('p.type', 't')
+                      ->andWhere("t.title = 'Maison'")
+                      ->orderBy('p.id', 'DESC')
+                      //->setMaxResults(3)
+                      ->getQuery()
+                      ->getResult()
+                      ;
+      }
+
+     /* find all announce vendre */
+
+    //  public function findAllAnnonceVendre()
+    //  {
+    //      return $this->createQueryBuilder('p')
+    //                  ->addSelect('c')
+    //                  ->join('p.category', 'c')
+    //                  ->andWhere("c.title = 'Vendre'")
+    //                  ->orderBy('p.id', 'DESC')
+    //                  //->setMaxResults(3)
+    //                  ->getQuery()
+    //                  ->getResult()
+    //                  ;
+    //  }
+
+
 }

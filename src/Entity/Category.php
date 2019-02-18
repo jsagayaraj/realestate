@@ -21,12 +21,7 @@ class Category
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $rent;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $sale;
+    private $title;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Property", mappedBy="category")
@@ -45,26 +40,14 @@ class Category
         return $this->id;
     }
 
-    public function getRent(): ?string
+    public function getTitle(): ?string
     {
-        return $this->rent;
+        return $this->title;
     }
 
-    public function setRent(string $rent): self
+    public function setTitle(string $title): self
     {
-        $this->rent = $rent;
-
-        return $this;
-    }
-
-    public function getSale(): ?string
-    {
-        return $this->sale;
-    }
-
-    public function setSale(string $sale): self
-    {
-        $this->sale = $sale;
+        $this->title = $title;
 
         return $this;
     }

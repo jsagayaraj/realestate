@@ -21,12 +21,7 @@ class Type
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $appartments;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $house;
+    private $title;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Property", mappedBy="type", orphanRemoval=true)
@@ -45,26 +40,14 @@ class Type
         return $this->id;
     }
 
-    public function getAppartments(): ?string
+    public function getTitle(): ?string
     {
-        return $this->appartments;
+        return $this->title;
     }
 
-    public function setAppartments(string $appartments): self
+    public function setTitle(string $title): self
     {
-        $this->appartments = $appartments;
-
-        return $this;
-    }
-
-    public function getHouse(): ?string
-    {
-        return $this->house;
-    }
-
-    public function setHouse(string $house): self
-    {
-        $this->house = $house;
+        $this->title = $title;
 
         return $this;
     }

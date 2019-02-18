@@ -55,6 +55,10 @@ label {
 	color: #9C9C9C;
 	font-size: 15px; 
 }
+
+.btn {
+    padding: 5px 12px;
+}
 .form-control {
 	display: block;
 	width: 100%;
@@ -816,15 +820,19 @@ nav#filter a.current {
 	background-size: cover;
 	text-align: left; 
 }
-#head.secondary h1{
- height: 300px;
-    line-height: 390px;
+#head.secondary h1 {
     
- COLOR: #FFFFFF;
+    COLOR: #FFFFFF;
+    position: relative;
+    top: 200px;
+    text-align: center;
 }
 /* ------- */
 .secpadding{
 padding:15px 0;
+}
+section{
+	margin-top:50px;
 }
 .btm-section{
 background: #E6E6E6;
@@ -1025,6 +1033,9 @@ border-radius: 0;
   MEDIA QUERIES
 */
 @media (max-width: 767px) {
+	section{
+		margin-top:25px;
+	}
 #head.secondary {
 	height: 80px;
 	min-height: 80px;
@@ -1040,6 +1051,7 @@ height:480px !important;
 
 /* Small devices (tablets, 768px and up) */
 @media (min-width: 768px) {
+	
 #quote-carousel {
 	margin-bottom: 0;
 	padding: 0 40px 30px 40px;

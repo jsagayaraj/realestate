@@ -1,0 +1,45 @@
+{% extends "base.html.twig" %}
+{% block title 'User List'%}
+  {% block body %}
+    <div class="container"><br><br>
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                {% for message in app.flashes('success') %}
+        <div class="alert alert-success">
+          {{message}}</div>
+      {% endfor %}
+      <h1>Types ({{types|length()}})</h1>
+      <table class="table  table-striped">
+        <thead>
+          <tr>
+            <td>Id</td>
+            <td>Title</td>
+            <td>Actions</td>
+          </tr>
+        </thead>
+        <tbody>
+          {% set id = 0 %}
+          {% for type in types %}
+            {% set id = id+1 %}
+            <tr>
+              <td>{{id}}</td>
+              <td>{{type.title}}</td>
+             
+              <td>
+                <a class="text-primary btn btn-warning" href="{{path('admin_edit_type', {'id':type.id})}}" style="display:inline-block; font-weight:bold;">Edit</a> || 
+                {# Pour delete #}
+                  <form method="post" action="{{path('admin_delete_type', {'id':type.id})}}" style="display:inline-block;"> <input name="_method" type="hidden" value="DELETE">
+                    <input type="hidden" name="_token" value="{{csrf_token('delete' ~ type.id)}}">
+                      <button class="btn btn-danger" onclick="return confirm('Etes vous vraiment sûr?')" type="submit">Delete</button>
+                    </form>
+                  </td>
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+            </div>
+        </div> {#end-container #}
+      
+      {% endblock %}
+    

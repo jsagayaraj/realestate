@@ -21,14 +21,14 @@ class AppFixtures extends Fixture
             //CATEGORY
             for ($j=0; $j <=5 ; $j++) { 
                 $category = new Category();
-                $category->setRent($faker->word)
-                        ->setSale($faker->word);
+                $category->setTitle($faker->word);
+                        
                         $manager->persist($category);
                 
                 for ($k=0; $k<=mt_rand(1,2); $k++){
                     $type = new Type();
-                    $type->setAppartments($faker->word)
-                        ->setHouse($faker->word);
+                    $type->setTitle($faker->word);
+                        
                         $manager->persist($type);
             
                     //PROPERTY

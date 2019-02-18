@@ -20,30 +20,38 @@
 		<div class="row">
             <div class="col-sm-12">
                 <div class="search-panel">
-                    <form class="form-inline" role="form">
+                    <form action="{{path('search')}}" class="form-inline" role="form" method="post">
                         <div class="form-group">
-                            <input type="text" class="form-control" id="city" placeholder="City" autocomplete="off">
+                            {# <input type="text" class="form-control" id="city" placeholder="Type" autocomplete="off"> #}
+                            <select class="form-control" name="type" id="">
+                                    
+                                    {% for type in types %}
+                                        <option value="{{type.id}}">{{type.title}}</option>
+                                    {% endfor %}
+                                </select>
                         </div> 
                         <div class="form-group hidden-xs adv">
                             <div class="input-group">
                                 <div class="input-group-addon">$</div>
-                                <input class="form-control price" type="text" placeholder="From">
+                                <input class="form-control price" type="text" placeholder="Ville"> 
                             </div>
                         </div>
+                        
                         <div class="form-group hidden-xs adv">
                             <div class="input-group">
                                 <div class="input-group-addon">$</div>
-                                <input class="form-control price" type="text" placeholder="To">
+                                <input class="form-control price" type="text" placeholder="Prix">
                             </div>
                         </div>
-                        <div class="form-group hidden-xs adv">
+                        {# <div class="form-group hidden-xs adv">
                             <div class="checkbox custom-checkbox"><label><input type="checkbox"><span class="fa fa-check"></span> For Rent</label></div>
                         </div>
                         <div class="form-group hidden-xs adv">
                             <div class="checkbox custom-checkbox"><label><input type="checkbox"><span class="fa fa-check"></span> For Sale</label></div>
-                        </div>
+                        </div> #}
                         <div class="form-group">
-                            <a href="" class="btn btnsearch">Search</a> 
+                            {# <a href="{{path('search')}}" class="btn btnsearch">Search</a>  #}
+                            <button type="submit" class="btn btn-primaty">Search</button>
                         </div>
                     </form>
                 </div>

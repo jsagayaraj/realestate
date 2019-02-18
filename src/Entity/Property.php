@@ -13,10 +13,7 @@ use Cocur\Slugify\Slugify;
  */
 class Property
 {
-    const HEAT = [
-        0 => 'Electrique',
-        1 => 'Gaz',
-    ];
+    
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -50,7 +47,7 @@ class Property
     private $floor;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="string")
      */
     private $heat;
 
@@ -60,7 +57,7 @@ class Property
     private $surface;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="string")
      */
     private $price;
 
@@ -85,7 +82,7 @@ class Property
     private $postalCode;
 
     /**
-     * @ORM\Column(type="boolean")
+     * @ORM\Column(type="string")
      */
     private $parking;
 
@@ -158,12 +155,12 @@ class Property
         return $this;
     }
 
-    public function getImage(): ?string
+    public function getImage()
     {
         return $this->image;
     }
 
-    public function setImage(string $image): self
+    public function setImage($image): self
     {
         $this->image = $image;
 
@@ -194,22 +191,22 @@ class Property
         return $this;
     }
 
-    public function getHeat(): ?int
+    public function getHeat(): ?string
     {
         return $this->heat;
     }
 
-    public function setHeat(int $heat): self
+    public function setHeat(string $heat): self
     {
         $this->heat = $heat;
 
         return $this;
     }
 
-    public function getHeatType():string
-    {
-        return self::HEAT[$this->heat];
-    }
+    // public function getHeatType():string
+    // {
+    //     return self::HEAT[$this->heat];
+    // }
 
     public function getSurface(): ?int
     {
@@ -223,22 +220,22 @@ class Property
         return $this;
     }
 
-    public function getPrice(): ?int
+    public function getPrice(): ?string
     {
         return $this->price;
     }
 
-    public function setPrice(int $price): self
+    public function setPrice(string $price): self
     {
         $this->price = $price;
 
         return $this;
     }
 
-    public function getFormatedPrice(): string
-    {
-        return number_format($this->price, 0, '', ' ');
-    }
+    // public function getFormatedPrice(): string
+    // {
+    //     return number_format($this->price, 0, '', ' ');
+    // }
 
     public function getCreatedAt(): ?\DateTimeInterface
     {
@@ -300,12 +297,12 @@ class Property
         return $this;
     }
 
-    public function getParking(): ?bool
+    public function getParking(): ?string
     {
         return $this->parking;
     }
 
-    public function setParking(bool $parking): self
+    public function setParking(string $parking): self
     {
         $this->parking = $parking;
 
