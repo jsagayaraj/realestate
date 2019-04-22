@@ -14,11 +14,16 @@ use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
+
+/**
+ * @Route("/admin")
+ */
+
 class PropertyController extends AbstractController
 {
   /********************************CREATE NEW PROPERTY ***************************/
   /**
-   * @Route("/admin/newProperty", name="admin_new_property")
+   * @Route("/newProperty", name="admin_new_property")
    */
   public function newProperty(Request $request, ObjectManager $manager)
   {
@@ -28,10 +33,10 @@ class PropertyController extends AbstractController
 
      if($form->isSubmitted() && $form->isValid())
       {
-        $file = $property->getImage(); 
-        $fileName = md5(uniqid()).'.'.$file->guessExtension(); 
-        $file->move($this->getParameter('photos_directory'), $fileName); 
-        $property->setImage($fileName);
+        // $file = $property->getImage(); 
+        // $fileName = md5(uniqid()).'.'.$file->guessExtension(); 
+        // $file->move($this->getParameter('photos_directory'), $fileName); 
+        // $property->setImage($fileName);
 
         $manager->persist($property);
         $manager->flush();
@@ -51,7 +56,7 @@ class PropertyController extends AbstractController
 /********************************SHOW PROPERTY ***************************/
 
   /**
-   * @Route("/admin/showProperties", name="admin_property_list")
+   * @Route("/showProperties", name="admin_property_list")
    * 
    */
   public function showProperty(PropertyRepository $repo)
@@ -67,23 +72,24 @@ class PropertyController extends AbstractController
   /********************************EDIT PROPERTY ***************************/
 
   /**
-   * @Route("/admin/editProp/{id}", name="admin_edit_property")
+   * @Route("/editProp/{id}", name="admin_edit_property")
    * 
    */
   public function editProperty(Property $property, ObjectManager $em, Request $request)
   {
-    $property->setImage(new File($this->getParameter('photos_directory'). '/'.$property->getImage()));
+    //$property->setImage(new File($this->getParameter('photos_directory'). '/'.$property->getImage()));
     $form = $this->createForm(PropertyType::class, $property);
             $form->handleRequest($request);
 
     if($form->isSubmitted() && $form->isValid()){
+      if($property->getImageFile())
       //$property = $form->getData();
       // dump($property);
       // die();
       
-      $file = $property->getImage(); 
-      $fileName = md5(uniqid()).'.'.$file->guessExtension(); 
-      $file->move($this->getParameter('photos_directory'), $fileName); 
+      // $file = $property->getImage(); 
+      // $fileName = md5(uniqid()).'.'.$file->guessExtension(); 
+      // $file->move($this->getParameter('photos_directory'), $fileName); 
 
       $em->persist($property);
       $em->flush();
@@ -101,9 +107,7 @@ class PropertyController extends AbstractController
   /********************************DELETE PROPERTY ***************************/
 
   /**
-   * @Route("/admin/{id}", name="admin_property_delete")
-   *
-   * 
+   * @Route("/property/delete/{id}", name="admin_property_delete")
    */
   public function deleteUser (Property $property, ObjectManager $em, Request $request)
   {

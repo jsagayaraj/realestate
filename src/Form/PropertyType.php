@@ -20,7 +20,7 @@ class PropertyType extends AbstractType
         $builder
             ->add('title')
             ->add('description')
-            ->add('image', FileType::class)
+            ->add('imageFile', FileType::class)
             ->add('rooms')
             ->add('floor')
             ->add('heat', ChoiceType::class, [

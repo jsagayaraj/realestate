@@ -40,7 +40,7 @@ class TypeController extends AbstractController
     /**
      * @Route("/admin/showType", name="admin_show_type")
      */
-    public function showType(Type $type, TypeRepository $repo)
+    public function showType(TypeRepository $repo)
     {
         $type = $repo->findAll();
         return $this->render("admin/type/show.html.twig",[
@@ -78,7 +78,7 @@ class TypeController extends AbstractController
 
     ////////////////////////////////DELETE///////////////////////////////
     /**
-   * @Route("/admin/type/{id}", name="admin_delete_type")
+   * @Route("/admin/type/delete/{id}", name="admin_delete_type")
    * 
    */
   public function deleteType (Type $type, ObjectManager $em, Request $request)

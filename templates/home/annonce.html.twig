@@ -1,52 +1,58 @@
 {% extends "base.html.twig" %}
-{% block title 'About' %}
+{% block title 'Annonces' %}
 
-{% block body %}
-{# include menu #}
-{% include "include/menu.html.twig" %}
+    {% block body %}
+        {# include menu #}
+        {% include "include/menu.html.twig" %}
 
 
-    <header id="head" class="secondary">
-        <div class="container">
-            <div class="row">
-                <h1>Tous les annonces</h1>
-            </div>
-        </div>
-    </header>
-
-    <!-- container -->
-    <section class="container">
-        <div class="row">
-            <!-- main content -->
-            {% for property in properties %}
-            <div class="col-lg-4 col-md-4 col-sm-12">
-                <div class="newsBox">
-                <div class="thumbnail">
-                    <figure>
-                    <img alt="" src="{{asset('uploads/')~ property.image}} "></figure>
-                    <div class="caption maxheight2">
-                        <div class="box_inner">
-                        <div class="box">
-                            <p class="title">
-                            <strong>{{property.title}}</strong>
-                            </p>
-                            <p>Lorem ipsum dolor sit amet, conc tetu er adipi scing. Praesent ves tibuum molestie lacuiirhs. Aenean.</p>
-                        </div>
-                        <div>
-                            <a class="btn-inline" href="#">more</a>
-                        </div>
-                        </div>
-                    </div>
-                    </div>
+        <header class="secondary" id="head">
+            <div class="container">
+                <div class="row">
+                    <h1>Tous les annonces</h1>
                 </div>
             </div>
-            {% endfor %} 
-            <!-- /main -->
-        </div>
-    </section>
-  
+        </header>
 
-    {# include footer #}
-{% include "include/footer.html.twig" %}
+        <!-- container -->
+        <section class="container">
+            <div
+                class="row">
+                <!-- main content -->
+                {% for property in properties %}
+                    <div class="col-lg-4 col-md-4 col-sm-12">
+                        <div class="newsBox">
+                            <div class="thumbnail">
+                                <figure>
+                                    <img alt="" src="{{vich_uploader_asset(property, 'imageFile')}} ">
+                                </figure>
 
-{% endblock %}
+                                <div class="caption maxheight2">
+                                    <div class="box_inner">
+                                        <div class="box">
+                                            <p class="title">
+                                                <strong>{{property.title}}</strong>
+                                            </p>
+                                            <p>Lorem ipsum dolor sit amet, conc tetu er adipi scing. Praesent ves tibuum molestie lacuiirhs. Aenean.</p>
+                                        </div>
+                                        <div>
+                                            <a class="btn-inline" href="{{path('property_show', {id:property.id, slug:property.slug})}}">Plus details</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+                <!-- /main -->
+            </div>
+            <div class="navigation">
+                {{ knp_pagination_render(properties) }}
+            </div>
+        </section>
+
+
+        {# include footer #}
+        {% include "include/footer.html.twig" %}
+
+    {% endblock %}

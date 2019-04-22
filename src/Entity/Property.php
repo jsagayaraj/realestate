@@ -2,14 +2,24 @@
 
 namespace App\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
-use Doctrine\ORM\Mapping as ORM;
 use Cocur\Slugify\Slugify;
+use Symfony\Component\Validator\Constraints as Assert;
+use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\Collection;
+use Symfony\Component\HttpFoundation\File\File;
+use Doctrine\Common\Collections\ArrayCollection;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+
+
+
 
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\PropertyRepository")
+ * @Vich\Uploadable()
+ * @UniqueEntity("title")
  */
 class Property
 {
@@ -30,11 +40,30 @@ class Property
      * @ORM\Column(type="text")
      */
     private $description;
+    /**************************************vich upload ***************************/
 
-    /**
+     /**
+     * @var string|null
      * @ORM\Column(type="string", length=255)
      */
-    private $image;
+    private $filename;
+    
+    /**
+     * @Assert\Image(mimeTypes="image/jpeg")
+     * @Vich\UploadableField(mapping="property_image", fileNameProperty="filename")
+     * @var File
+     */
+    private $imageFile;
+
+
+    /**
+     * @ORM\Column(type="datetime")
+     *
+     */
+    private $updated_at;
+
+    /**************************************vich upload ***************************/
+
 
     /**
      * @ORM\Column(type="integer")
@@ -155,17 +184,45 @@ class Property
         return $this;
     }
 
-    public function getImage()
+    /************************************FOR IMAGE ****************************/
+    /**
+     * If manually uploading a file (i.e. not using Symfony Form) ensure an instance
+     * of 'UploadedFile' is injected into this setter to trigger the update. If this
+     * bundle's configuration parameter 'inject_on_load' is set to 'true' this setter
+     * must be able to accept an instance of 'File' as the bundle will inject one here
+     * during Doctrine hydration.
+     *
+     * @param File $imageFile
+     * @return Property
+     */
+    public function setImageFile(?File $imageFile): Property
     {
-        return $this->image;
-    }
+        $this->imageFile = $imageFile;
 
-    public function setImage($image): self
-    {
-        $this->image = $image;
-
+        if ($this->imageFile instanceof  UploadedFile) {
+            // It is required that at least one field changes if you are using doctrine
+            // otherwise the event listeners won't be called and the file is lost
+            $this->updated_at = new \DateTime('now');
+        }
         return $this;
     }
+
+    public function getImageFile(): ?File
+    {
+        return $this->imageFile;
+    }
+
+    public function setFilename(?string $filename): void
+    {
+        $this->filename = $filename;
+    }
+
+    public function getFilename(): ?string
+    {
+        return $this->filename;
+    }
+
+    /************************************FOR IMAGE ****************************/
 
     public function getRooms(): ?int
     {

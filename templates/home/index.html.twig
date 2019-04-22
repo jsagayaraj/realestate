@@ -1,106 +1,100 @@
 {% extends 'base.html.twig' %}
 {% block body %}
 
-{# include menu #}
-{% include "include/menu.html.twig" %}
+    {# include menu #}
+    {% include "include/menu.html.twig" %}
 
- {# include header #}
- {% include "include/header.html.twig" %}
+    {# include header #}
+    {% include "include/header.html.twig" %}
 
-<div class="container">
-<section class="news-box top-margin">
-  <div class="container">
-    <div class="row">
-      <div class="section-heading">
-        <h2>LOUER</h2>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt.</p>
-      </div>
-      {% for property_louer in properties_louer | slice(0,3) %}
-      <div class="col-lg-4 col-md-4 col-sm-12">
-        <div class="newsBox">
-          <div class="thumbnail">
-            <figure>
-              <img alt="" src="{{asset('uploads/')~ property_louer.image}} "></figure>
-              <div class="caption maxheight2">
-                <div class="box_inner">
-                  <div class="box">
-                    <p class="title">
-                      <strong>{{property_louer.title}}</strong>
-                    </p>
-                    <p>Lorem ipsum dolor sit amet, conc tetu er adipi scing. Praesent ves tibuum molestie lacuiirhs. Aenean.</p>
-                  </div>
-                  <div>
-                    <a class="btn-inline" href="#">more</a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        {% endfor %} 
-      </section><br><br>
-      <div class="container">
-        <div class="row text-center">
-          <div class="col-md-12">
-            <a href="{{path('annonce_louer')}}" class="btn btn-primary text-center">Voir Plus</a>
-          </div>
-        </div>
-        <hr>
-      </div>
-
-      <section class="news-box top-margin">
-        <div class="container">
-          <div class="row">
-            <div class="section-heading">
-              <h2>Vendre</h2>
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt.</p>
-            </div>
-            {% for property_vendre in properties_vendre | slice(0, 3) %}
-              <div class="col-lg-4 col-md-4 col-sm-12">
-                <div class="newsBox">
-                  <div class="thumbnail">
-                    <figure>
-                      <img alt="" src="{{asset('uploads/') ~ property_vendre.image}}"></figure>
-                      <div class="caption maxheight2">
-                        <div class="box_inner">
-                          <div class="box">
-                            <p class="title">
-                              <strong>{{property_vendre.title}}</strong>
-                            </p>
-                            <p>Lorem ipsum dolor sit amet, conc tetu er adipi scing. Praesent ves tibuum molestie lacuiirhs. Aenean.</p>
-                          </div>
-                          <div>
-                            <a class="btn-inline" href="#">more</a>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              {% endfor %}
-                
-                </div>
-              </div>
-            </section>
+    <div class="container">
+        <section class="news-box top-margin">
             <div class="container">
-        <div class="row text-center">
-          <div class="col-md-12">
-            <a href="{{path('annonce_vendre')}}" class="btn btn-primary text-center">Voir Plus</a>
-          </div>
-        </div>
-        <hr>
-      </div>
-          
-</div>
+                <div class="row">
+                    <div class="section-heading">
+                        <h2>LOUER</h2>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt.</p>
+                    </div>
+                    {% for property_louer in properties_louer | slice(0,3) %}
+                        <div class="col-lg-4 col-md-4 col-sm-12">
+                            <div class="newsBox">
+                                <div class="thumbnail">
+                                    <figure>
+                                        <img alt="" src="{{asset('uploads/')~ property_louer.fileName}} "></figure>
+                                    <div class="caption maxheight2">
+                                        <div class="box_inner">
+                                            <div class="box">
+                                                <p class="title">
+                                                    <strong>{{property_louer.title}}</strong>
+                                                </p>
+                                                <p>Lorem ipsum dolor sit amet, conc tetu er adipi scing. Praesent ves tibuum molestie lacuiirhs. Aenean.</p>
+                                            </div>
+                                            <div>
+                                                <a class="btn-inline" href="#">more</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </section><br><br>
+                <div class="container">
+                    <div class="row text-center">
+                        <div class="col-md-12">
+                            <a href="{{path('annonce_louer')}}" class="btn btn-primary text-center">Voir Plus</a>
+                        </div>
+                    </div>
+                    <hr>
+                </div>
+
+                <section class="news-box top-margin">
+                    <div class="container">
+                        <div class="row">
+                            <div class="section-heading">
+                                <h2>Vendre</h2>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt.</p>
+                            </div>
+                            {% for property_vendre in properties_vendre | slice(0, 3) %}
+                                <div class="col-lg-4 col-md-4 col-sm-12">
+                                    <div class="newsBox">
+                                        <div class="thumbnail">
+                                            <figure>
+                                                <img alt="" src="{{asset('uploads/') ~ property_vendre.fileName}}"></figure>
+                                            <div class="caption maxheight2">
+                                                <div class="box_inner">
+                                                    <div class="box">
+                                                        <p class="title">
+                                                            <strong>{{property_vendre.title}}</strong>
+                                                        </p>
+                                                        <p>Lorem ipsum dolor sit amet, conc tetu er adipi scing. Praesent ves tibuum molestie lacuiirhs. Aenean.</p>
+                                                    </div>
+                                                    <div>
+                                                        <a class="btn-inline" href="#">more</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+
+                        </div>
+                    </div>
+                </section>
+                <div class="container">
+                    <div class="row text-center">
+                        <div class="col-md-12">
+                            <a href="{{path('annonce_vendre')}}" class="btn btn-primary text-center">Voir Plus</a>
+                        </div>
+                    </div>
+                    <hr>
+                </div>
+
+            </div>
 
 
+            {# include footer #}
+            {% include "include/footer.html.twig" %}
 
-
-
-
-
-
-{# include footer #}
-{% include "include/footer.html.twig" %}
-
-{% endblock %}
+        {% endblock %}

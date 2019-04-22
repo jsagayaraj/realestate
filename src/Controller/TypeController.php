@@ -15,19 +15,15 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class TypeController extends AbstractController
 {
-//     /**
-//      * @Route("/search", name="search-appt")
-//      */
-//     public function appartement(TypeRepository $repo){
-//         $types = $repo->findAll();
-//         dump($types);
-//             return $this->render("include/header.html.twig",[
-//                 'type' => $types
-//             ]);
-//    }
+    /**
+     * @Route("/search", name="search-appt")
+     */
+    public function appartement(TypeRepository $repo){
+        $types = $repo->findAll();
+        dump($types);
+            return $this->render("include/header.html.twig",[
+                'type' => $types
+            ]);
+   }
 
- 
-
-
-    
 }

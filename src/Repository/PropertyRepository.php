@@ -47,16 +47,18 @@ class PropertyRepository extends ServiceEntityRepository
         ;
     }
     */
-    /* find all annonce by decending order */
-    public function findAllAnnonceByDESC(){
-        return $this->createQueryBuilder('p')
-            ->orderBy('p.id', 'DESC')
-            ->getQuery()
-            ->getResult()
-        ;
+    /* find all annonce by decending order, this is normal method without pagination */
+    // public function findAllAnnonceByDESC(){
+    //     return $this->createQueryBuilder('p')
+    //         ->orderBy('p.id', 'DESC')
+    //         ->getQuery()
+    //         ->getResult()
+    //     ;
 
-    }
+    // }
 
+
+    
     /* find all announce louer */
 
     public function findAllAnnonceLouer()

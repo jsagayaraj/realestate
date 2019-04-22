@@ -1,97 +1,96 @@
 {% extends "base.html.twig" %}
 {% block title 'User List'%}
-{% block stylesheets %}
-      <style>
-          .form-check {
-              position: relative;
-              display: inline-block;
-              padding-left: 0;
-          }
+    {% block stylesheets %}
+        <style>
+            .form-check {
+                position: relative;
+                display: inline-block;
+                padding-left: 0;
+            }
 
-          .form-check:last-child{
-              padding-left: 3rem;
-          }
-      </style>
-        
-  {% endblock %}
-  {% block body %}
-    <div class="container">
-      {% for message in app.flashes('success') %}
-        <div class="alert alert-success">
-          {{message}}</div>
-      {% endfor %}
-      <h1>Properties</h1>
-        {{form_start(form)}}
-        <div class="row">
-          <div class="col-md-4">
-            {{form_row(form.title, {'label':'Titre','attr':{'placeholder' : 'Titre',}})}}
-          </div>
-          <div class="col-md-2">
-            {{form_row(form.rooms, {'label':'Chambres','attr':{'placeholder' : 'Chambres',}})}}
-          </div>
-          <div class="col-md-2">
-            {{form_row(form.floor, {'label':'Etage','attr':{'placeholder' : 'Etage',}})}}
-          </div>
-          <div class="col-md-2">
-            {{form_row(form.surface, {'label':'Surface','attr':{'placeholder' : 'Surface',}})}}
-          </div>
-          <div class="col-md-2">
-            {{form_row(form.price, {'label':'Prix','attr':{'placeholder' : 'Prix',}})}}
-          </div>
+            .form-check:last-child {
+                padding-left: 3rem;
+            }
+        </style>
+
+    {% endblock %}
+    {% block body %}
+        <div class="container">
+            {% for message in app.flashes('success') %}
+                <div class="alert alert-success">
+                    {{message}}</div>
+            {% endfor %}
+            <h1>Properties</h1>
+            {{form_start(form)}}
+            <div class="row">
+                <div class="col-md-4">
+                    {{form_row(form.title, {'label':'Titre','attr':{'placeholder' : 'Titre',}})}}
+                </div>
+                <div class="col-md-2">
+                    {{form_row(form.rooms, {'label':'Chambres','attr':{'placeholder' : 'Chambres',}})}}
+                </div>
+                <div class="col-md-2">
+                    {{form_row(form.floor, {'label':'Etage','attr':{'placeholder' : 'Etage',}})}}
+                </div>
+                <div class="col-md-2">
+                    {{form_row(form.surface, {'label':'Surface','attr':{'placeholder' : 'Surface',}})}}
+                </div>
+                <div class="col-md-2">
+                    {{form_row(form.price, {'label':'Prix','attr':{'placeholder' : 'Prix',}})}}
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="col-md-3">
+                    {{form_row(form.bathrooms, {'label':'Salle de bain','attr':{'placeholder' : 'Salle de bain',}})}}
+                </div>
+                <div class="col-md-3">
+                    {{form_row(form.heat, {'label':'Energy'})}}
+                </div>
+                <div class="col-md-3">
+                    {{form_row(form.parking)}}
+                </div>
+                <div class="col-md-3">
+                    {{form_row(form.sold, {'label':'Vendu'})}}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    {{form_row(form.category)}}
+                </div>
+                <div class="col-md-3">
+                    {{form_row(form.type)}}
+                </div>
+            </div>
+
+            <h2>Adresse</h2>
+            <div class="row">
+                <div class="col-md-4">
+                    {{form_row(form.address, {'label':'Adresse','attr':{'placeholder' : 'Adresse',}})}}
+                </div>
+                <div class="col-md-4">
+                    {{form_row(form.postalCode, {'label':'Code postal','attr':{'placeholder' : 'Code postal',}})}}
+                </div>
+                <div class="col-md-4">
+                    {{form_row(form.city, {'label':'Ville','attr':{'placeholder' : 'Ville',}})}}
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-4">
+                    {{form_row(form.imageFile)}}
+                </div>
+                <div class="col-md-8">
+                    {{form_row(form.description)}}
+                </div>
+
+            </div>
+
+            {{form_widget(form)}}
+            <button class="btn btn-primary" type="submit">
+                {{button|default('Entegistrer')}}</button>
+            {{form_end(form)}}
+
         </div>
-
-        
-        <div class="row">
-          <div class="col-md-3">
-            {{form_row(form.bathrooms, {'label':'Salle de bain','attr':{'placeholder' : 'Salle de bain',}})}}
-          </div>
-          <div class="col-md-3">
-            {{form_row(form.heat, {'label':'Energy'})}}
-          </div>
-          <div class="col-md-3">
-            {{form_row(form.parking)}}
-          </div>
-          <div class="col-md-3">
-            {{form_row(form.sold, {'label':'Vendu'})}}
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-md-3">
-            {{form_row(form.category)}}
-          </div>
-          <div class="col-md-3">
-            {{form_row(form.type)}}
-          </div>
-        </div>
-
-        <h2>Adresse</h2>
-        <div class="row">
-          <div class="col-md-4">
-            {{form_row(form.address, {'label':'Adresse','attr':{'placeholder' : 'Adresse',}})}}
-          </div>
-          <div class="col-md-4">
-            {{form_row(form.postalCode, {'label':'Code postal','attr':{'placeholder' : 'Code postal',}})}}
-          </div>
-          <div class="col-md-4">
-            {{form_row(form.city, {'label':'Ville','attr':{'placeholder' : 'Ville',}})}}
-          </div>
-        </div>
-
-         <div class="row">
-          <div class="col-md-4">
-            {{form_row(form.image)}}
-          </div>
-          <div class="col-md-8">
-            {{form_row(form.description)}}
-          </div>
-          
-        </div>
-
-        {{form_widget(form)}}
-        <button class="btn btn-primary" type="submit">
-          {{button|default('Entegistrer')}}</button>
-        {{form_end(form)}}
-
-    </div>
-  {% endblock %}
-    
+    {% endblock %}
