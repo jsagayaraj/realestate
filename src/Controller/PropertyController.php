@@ -131,37 +131,35 @@ class PropertyController extends AbstractController
     /**
      * @Route("/biens/{slug}-{id}", name="property_show", requirements={"slug": "[a-z0-9\-]*"})
      */
-    public function show(Property $property, string $slug, Request $request, ContactNotification $notification)
+    public function show(Property $property, string $slug, Request $request, ContactNotification $notification)    
     {
-      
-      if($property->getSlug() !== $slug){
-        return $this->redirectToRoute('property_show', [
-          'id' => $property->getId(),
-          'slug' => $property->getSlug()
-          ]);
-        }
-        $contact = new Contact();
-        $contact->setProperty($property);
-        $form = $this->createForm(ContactType::class, $contact);
-        $form->handleRequest($request);
-        if($form->isSubmitted() &&  $form->isValid()){
-          $notification->notify($contact);
-          $this->addFlash('success', 'Votre email a bien été envoyé');
-         
-         /* return $this->redirectToRoute('property_show', [
+        if($property->getSlug() !== $slug){
+          return $this->redirectToRoute('property_show', [
             'id' => $property->getId(),
             'slug' => $property->getSlug()
-          ]);*/
-        }
+            ]);
+          }
+          $contact = new Contact();
+          $contact->setProperty($property);
+          $form = $this->createForm(ContactType::class, $contact);
+          $form->handleRequest($request);
+          if($form->isSubmitted() &&  $form->isValid()){
+            $notification->notify($contact);
+            $this->addFlash('success', 'Votre email a bien été envoyé');
+          
+          return $this->redirectToRoute('property_show', [
+              'id' => $property->getId(),
+              'slug' => $property->getSlug()
+            ]);
+          }
 
-      return $this->render("home/show.html.twig",[
-        'property' => $property,
-        'form'=> $form->createView()
-      ]);
+        return $this->render("home/show.html.twig",[
+          'property' => $property,
+          'form'=> $form->createView()
+        ]);
+     
+ 
+   
     }
-      
 
-    
 }
-
-

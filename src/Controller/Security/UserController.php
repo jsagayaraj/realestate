@@ -17,6 +17,7 @@ class UserController extends AbstractController
 
     /**
      * @Route ("/inscription", name="registration")
+     * 
      */
     public function registration(Request $request, ObjectManager $manager, UserPasswordEncoderInterface $encoder)
     {
@@ -26,8 +27,10 @@ class UserController extends AbstractController
 
         if($form->isSubmitted() && $form->isValid())
         {
-            $hash = $encoder->encodePassword($user, $user->getPassword());
-            $user->setPassword($hash);
+           $hash = $encoder->encodePassword($user, $user->getPassword());
+           $user->setPassword($hash);
+           //set user status by default user
+           $user->setStatus('user');
            $manager->persist($user);
            $manager->flush();
            $this->addFlash('success', 'Vous êtes bien enregistré');

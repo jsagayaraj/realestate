@@ -1,15 +1,52 @@
-<mjml>
-    <mj-body>
-        <mj-section>
-            <mj-column>
+<!doctype html>
+<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:v="urn:schemas-microsoft-com:vml" xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <title></title>
+        <!--[if !mso]><!-- -->
+        <meta
+        content="IE=edge" http-equiv="X-UA-Compatible">
+        <!--<![endif]-->
+        <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+        <meta content="width=device-width, initial-scale=1" name="viewport">
+    </head>
+    <body>
+        <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="width:600px;">
 
-                <mj-image src="/assets/img/logo-small.png" width="100px"></mj-image>
+            <tr>
+                <td>
+                    <h1>Demande de contact:
+                        {{(contact.property.title)}}</h1>
+                </td>
+            </tr>
+            <tr>
+                <td>Nom du bien:</td>
+                <td>{{contact.property.title}}</td>
+            </tr>
+            <tr>
+                <td>Prenom:</td>
+                <td>{{contact.firstname}}</td>
+            </tr>
 
-                <mj-divider border-color="#F45E43"></mj-divider>
+            <tr>
+                <td>Nom:</td>
+                <td>{{contact.lastname}}</td>
+            </tr>
 
-                <mj-text color="#F45E43" font-family="helvetica" font-size="20px">Hello World</mj-text>
+            <tr>
+                <td>Télephone</td>
+                <td>{{contact.phone}}</td>
+            </tr>
 
-            </mj-column>
-        </mj-section>
-    </mj-body>
-</mjml>
+            <tr>
+                <td>Email:</td>
+                <td>{{contact.email}}</td>
+            </tr>
+            <tr>
+                <td>Message:</td>
+                <td>{{contact.message}}</td>
+            </tr>
+
+
+        </table>
+    </body>
+</html>

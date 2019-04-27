@@ -1,0 +1,52 @@
+{% extends "base.html.twig" %}
+
+{% block title 'User List'%}
+  {% block body %}
+    <div class="container">
+      {% for message in app.flashes('success') %}
+        <div class="alert alert-success">{{message}}</div>
+      {% endfor %}
+      <h1>User List ({{users | length()}})</h1>
+      <table class="table  table -striped">
+        <thead>
+          <tr>
+            <td>Id</td>
+            <td>Gender</td>
+            <td>Nom</td>
+            <td>Prenom</td>
+            <td>Email</td>
+            <td>Phone number</td>
+            <td>Adress</td>
+            <td>City</td>
+            <td>Code Postal</td>
+            <td>Status</td>
+            <td>Action</td>
+
+          </tr>
+        </thead>
+        <tbody>
+          {% set id = 0 %}
+          {% for user in users %}
+            {% set id = id+1 %}
+            <tr>
+              <td>{{id}}</td>
+              <td>{{user.gender}}</td>
+              <td>{{user.lastname}}</td>
+              <td>{{user.firstname}}</td>
+              <td>{{user.email}}</td>
+              <td>0{{user.phoneNumber}}</td>
+              <td>{{user.address}}</td>
+              <td>{{user.city}}</td>
+              <td>{{user.postalCode}}</td>
+              <td>{{user.status}}</td>
+              <td>
+                <a class="btn btn-warning" href="{{path('admin_edit_user', {id:user.id})}}">Edit</a>
+
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
+  {% endblock %}

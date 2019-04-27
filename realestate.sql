@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le :  ven. 15 fév. 2019 à 15:52
+-- Généré le :  sam. 27 avr. 2019 à 06:40
 -- Version du serveur :  5.7.24
 -- Version de PHP :  7.2.14
 
@@ -33,7 +33,7 @@ CREATE TABLE IF NOT EXISTS `category` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `title` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Déchargement des données de la table `category`
@@ -41,7 +41,7 @@ CREATE TABLE IF NOT EXISTS `category` (
 
 INSERT INTO `category` (`id`, `title`) VALUES
 (1, 'Louer'),
-(3, 'Vendre');
+(8, 'Vendre');
 
 -- --------------------------------------------------------
 
@@ -80,7 +80,8 @@ CREATE TABLE IF NOT EXISTS `migration_versions` (
 --
 
 INSERT INTO `migration_versions` (`version`, `executed_at`) VALUES
-('20190214100734', '2019-02-14 10:08:00');
+('20190421222253', '2019-04-21 22:23:04'),
+('20190426093007', '2019-04-26 09:31:06');
 
 -- --------------------------------------------------------
 
@@ -95,12 +96,13 @@ CREATE TABLE IF NOT EXISTS `property` (
   `type_id` int(11) NOT NULL,
   `title` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `description` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
-  `image` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `filename` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `updated_at` datetime NOT NULL,
   `rooms` int(11) NOT NULL,
   `floor` int(11) DEFAULT NULL,
-  `heat` varchar(25) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `heat` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `surface` int(11) NOT NULL,
-  `price` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `price` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `sold` tinyint(1) NOT NULL,
   `city` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `address` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -117,17 +119,17 @@ CREATE TABLE IF NOT EXISTS `property` (
 -- Déchargement des données de la table `property`
 --
 
-INSERT INTO `property` (`id`, `category_id`, `type_id`, `title`, `description`, `image`, `rooms`, `floor`, `heat`, `surface`, `price`, `sold`, `city`, `address`, `postal_code`, `parking`, `bathrooms`, `created_at`) VALUES
-(4, 3, 1, 'Appartement à vendre', 'Appartement de type F3 à louer en hyper centre ville de Cherbourg en résidence avec ascenseur, en cours de rénovation. Entrée avec placards, séjour salon de 20 m2, cuisine, deux chambres de 12 et 13 m2. Salle de bains et wc indépendant. Cave. Chauffage individuel. Dernier étage. Libre le 30 Avril 2019. Classe énergie D. Honoraires TTC charge locataire : 410.98euros dont 135.54euros d\'honoraires d\'état des lieux Loyer mensuel 409 euros - Charges locatives 139 euros (Régularisation annuelle) - Honoraire TTC à la charge du locataire 410.98 euros dont 135.54 euros d\'honoraires d\'état des lieux.', '3933f2cbc63fa8878d348b77c629ed7d.jpeg', 4, 5, 'Electrique', 75, '284000', 0, 'Cherbourg-Octeville', '58 rue victor hugo', 85475, 'oui', 1, '2019-02-14 12:31:47'),
-(5, 3, 1, 'Appartement à vendre  4 pièces', 'EXCLUSIVITE TRES RECHERCHEE SUR VOIRON!!! Place de parking privative sécurisée, TERRASSE, ascenseur et pas de travaux pour cet appartement composé d\'un salon/séjour lumineux avec accès direct sur sa terrasse qui donne sur la cour privée de la copropriété. Trois belles chambres (9.35, 13.35 et 13.6 m2) , une salle de bains et un WC indépendant . Cave Résidence sécurisée Chauffage individuel gaz de ville Double vitrage Visite virtuelle disponible sur le site ORPI.COM Copropriété de 106 lots Charges annuelles : 1485 euros. 170000 euros Honoraires à la charge du vendeur.', 'ff6c92e1306f2b039871ff7fec4c6c7d.jpeg', 3, 3, 'Gaz', 76, '170000', 0, 'Voiron', '58 Boulvard de Anatole', 38500, 'oui', 1, '2019-02-15 08:40:21'),
-(6, 3, 2, 'Maison à vendre  7 pièces', 'située en lisière du bois d\' Avron, solide construction 1991 édifiée sur sous-sol total avec garage, cave a vins, atelier, bureau, chaufferie buanderie , le rez-de -chaussée est divisé en, hall d\'entrée, double séjour avec cheminée, terrasse et balcon, grand cuisine équipée avec arrière cuisine de 20 m2, une belle chambre avec salle de bain attenante avec douche italienne, wc. a l\'étage: palier, 4 grandes chambres, grand débarras aménageable. grenier au-dessus, chauffage central au gaz, chaudière neuve a condensation. terrain 362 m2. centre ville proche. 572000 euros (540643 euros Hors Honoraires) - Honoraires : 5.8 % TTC à la charge de l\'acquéreur.', '7ab25eb88ba7a5f637392c9ae0100ad1.jpeg', 6, 0, 'Gaz', 160, '572000', 0, 'Neuilly-Plaisance', '27  avenue Ferdinand de Lesseps', 93360, 'oui', 2, '2019-02-15 08:43:08'),
-(7, 3, 2, 'Maison à vendre  4 pièces', 'Dans un quartier situé au calme : maison en pierres composée d\'une cuisine avec îlot central, une cour, grand séjour, 3 chambres, salle de bains. Combles aménageables de 50m2 environ. Beaux volumes. 157000 euros Honoraires à la charge du vendeur.', '8ebce3bbe53b7acbbf60beb09e95760a.jpeg', 3, 0, 'Electrique', 160, '157000', 0, 'ST LAURENT DU PONT', '27  Place de la Madeleine', 38380, 'oui', 2, '2019-02-15 08:48:21'),
-(8, 3, 1, 'Appartement à vendre  4 pièces', 'EXCLUSIVITE TRES RECHERCHEE SUR VOIRON!!! Place de parking privative sécurisée, TERRASSE, ascenseur et pas de travaux pour cet appartement composé d\'un salon/séjour lumineux avec accès direct sur sa terrasse qui donne sur la cour privée de la copropriété. Trois belles chambres (9.35, 13.35 et 13.6 m2) , une salle de bains et un WC indépendant . Cave Résidence sécurisée Chauffage individuel gaz de ville Double vitrage Visite virtuelle disponible sur le site ORPI.COM Copropriété de 106 lots Charges annuelles : 1485 euros. 170000 euros Honoraires à la charge du vendeur.', '6578fbf0e6b2477e92fa5a1d0b6ec22a.jpeg', 3, 2, 'Electrique', 120, '170000', 0, 'LA ROCHE-SUR-YON', '35  rue du Clair Bocage', 85000, 'no', 1, '2019-02-15 08:50:50'),
-(9, 3, 1, 'Appartement à vendre  4 pièces', 'VOIRON (38500) à 10 minutes à pied du centre ville, dans résidence de standing avec vue imprenable, appartement de type 4 pièces 85 m2 composé d\'un salon avec accès balcon, cuisine équipée séparée, buanderie, salle d\'eau, wc séparés, 3 chambres et une cave le tout au coeur d\'un parc arboré. Ascenseur remplacé en 2018. Proche école, collège, transports et commerces. Exposition SUD. Proposition d\'aménagement du salon en photo principale . A DECOUVRIR SANS TARDER !! Copropriété de 125 lots Charges annuelles : 2200 euros. 154000 euros Honoraires à la charge du vendeur.', '6172c3bda69b8f942df410fc63a0edd7.jpeg', 3, 3, 'Electrique', 85, '175000', 0, 'SIX-FOURS-LES-PLAGES', '117  avenue Jules Ferry', 83140, 'oui', 1, '2019-02-15 08:53:00'),
-(10, 1, 2, 'Maison à louer  3 pièces', 'A LOUER - Maison comprenant un séjour avec cheminée, une cuisine, une salle de bains, une chambre et une pièce palière pouvant servir de chbre d\'appoint. Une dépendance aménagée. Le jardin de 340m2 est arboré et comprend un abris à outil et un appentis voiture. Beaucoup de charme Loyer mensuel 707 euros - Charges locatives 55 euros - Honoraire TTC à la charge du locataire 660 euros dont 180 euros d\'honoraires d\'état des lieux.', '0af5528d54f37d18180eda1880b82e76.jpeg', 2, NULL, 'Electrique', 92, '762 €/mois', 0, 'VIERZON', '11  Place du Jeu de Paume', 18100, 'oui', 2, '2019-02-15 08:57:59'),
-(11, 1, 2, 'Maison à louer  4 pièces', 'Peu bataille oui magasins premiere derniere derriere uns. Asiatiques tot sur commandant tristement toi peu. Ifs peu chez avis afin joie tot tout poil. Peu nations encourt non express peu. Des frissonner gourmettes ordonnance six est. Dit ces vers hors voie pays oui. Un pu fumantes batisses on galopade colonnes reprises massacre il. Entourage tu le echauffer cependant consumait reprendre ah. Ordonnance remarquent on qu remplirent. Va en au jambes jeunes essaim. \r\n\r\nQu on sentent dechire drapees touffes. He souhaitait indulgence oh remplirent hurlements frissonner redoublait. Bois pose dur net son joie sais. Epis elan pour oh mess me paix. Avons on le tu irise eu neige. Actes osait monte aux quand avoir toi. Fort suis vers feu robe des prit. \r\n\r\nRas adorer touffe beaute peu ans. Ont trouve aux les ifs parees gronde. Faite armes nul garde sur elles court. Caractere oui viendrait vin accoudees tot certitude. Est ont aux vieillards patiemment republique bouquetins estaminets. Cassait oh dragons ce abattre me. Blancs vin soeurs autres non menent paquet gronde. Et joue seul tu plus. Je la donc veut avez on quoi.', '7dcb9fd636e9b1d026aae541ddb13cd5.jpeg', 3, 0, 'Electrique', 112, '860 €/mois', 0, 'LE HAVRE', '13  rue Michel Ange', 76600, 'oui', 2, '2019-02-15 09:08:14'),
-(12, 1, 1, 'Belle Appartement à Louer 5pièce sdfsdf', 'Cet peu ans car frisottent redoublait paraissent prisonnier. Rit casernes ils retablir batterie. Boulevards que asiatiques mon entrainait inattendus nos artilleurs. Louis en noces qu finit ronde bonte as. Qu de puisque visages te presque ah caillou. Ronde arbre il de faire peres ah neuve. Sol militaire qui surveille orientaux roc. Fanatiques rit les defilaient sur frisottent republique. Sa physique souliers va arrivera il actrices qu. Dressait profonde avantage ai ii he. \r\n\r\nCents mal abris levee ere foret. Effrayant as evocation descendit metairies eu etendards ah et. Eue point rirez etais ils. Que songeant piquette dissiper remettre nos promptes eue gravures. Messieurs assassins cependant si universel la. Comptait mur six poitrine sanglees par derniere. Oignons va souleve sa paysans. Bon fumantes triomphe comptait art joyeuses regardez que ses. Ils non nationales paraissait fin frisottent iii. \r\n\r\nJe ah prenons tendons marches propice. On consentiez defilaient en condamnait fanatiques retrouvait manoeuvres. Sein sent eue cet toi mais cher. Pris vont tres ou sent oh seul. Passa pu tu ii desir en petit. Avant gifle somme feu aides calme ils. Avec vaut sans oui quoi sol avis.', 'C:\\wamp64\\tmp\\phpBB6B.tmp', 4, 5, 'Electrique', 120, '950 €/mois', 0, 'SAINTE-GENEVIÈVE-DES-BOIS', '67  rue Sébastopol', 91700, 'oui', 1, '2019-02-15 09:09:57'),
-(13, 1, 1, 'Jolie Appartement à louer à Saint-Brieuc', 'Hebetude joyeuses assister nul ton prochain les commence massacre. Tout ni elle pris il au ma vaut sent hein. Ils pleine net enleve tenter maison centre blancs. Ils voeux que aimer bas linge des verre. Instrument maintenant en miserables au defilaient he. Se torture enlever en dessein. Peur moi age sang deja fort etat fin. Ronfle car car mon ces pareil reunir humain metres peuple. Corbeille sacrifice convertir des ses militaire ans. \r\n\r\nOrdonnance partageait permission roc toi sur fer. Coups acier avait ah qu. Caractere miserable deroulent cartouche echangent ici mes. Descendit alternent son firmament chambrees age. Sommes gamins allons he autant images et. Cuirasses tu neanmoins esplanade ah couraient oh. Exagere cartons engager arriere ah on. Pans les sur vous moi agir ses dans. Lanternes somptueux degourdir ans une cotillons chaclosah par portieres. Mes imprudente sol compassion vieillards decharnees.', 'dc427890665c62466bcd6ae5f5e1a36d.jpeg', 4, 3, 'Gaz', 114, '850 €/mois', 0, 'SAINT-BRIEUC', '45  rue des Nations Unies', 22000, 'oui', 1, '2019-02-15 09:12:27');
+INSERT INTO `property` (`id`, `category_id`, `type_id`, `title`, `description`, `filename`, `updated_at`, `rooms`, `floor`, `heat`, `surface`, `price`, `sold`, `city`, `address`, `postal_code`, `parking`, `bathrooms`, `created_at`) VALUES
+(4, 1, 1, 'sdfsdf', 'sdfsdf', '5cbd8f504b61c763182689.jpg', '2019-04-22 09:54:24', 2, 1, 'Electrique', 54, '25487', 0, 'sdfs', 'sdfsdf', 95, 'oui', 1, '2019-04-22 09:34:47'),
+(5, 1, 1, 'Appartement à louer', 'Compiègne, à proximité de l\'UTC et du centre ville, grand studio de 34.29m2 comprenant une entrée avec placard, une pièce de vie , une cuisine séparée, une salle de bains et WC. Une cave privative. Eau chaude - eau froide - chauffage collectif Disponible mi juillet Loyer mensuel 403 euros - Charges locatives 100 euros (Régularisation annuelle) - Honoraire TTC à la charge du locataire 374 euros dont 102 euros d\'honoraires d\'état des lieux.', '5cbd8bc27684e846590445.jpg', '2019-04-22 09:39:13', 3, 3, 'Electrique', 34, '503', 0, 'Compiègne', 'sdfsdfsdf', 85974, 'oui', 1, '2019-04-22 09:39:13'),
+(6, 1, 1, 'Appartement à louer - Alençon', 'Alençon, proche centre ville - gare, dans résidence sécurisée avec parking, espaces verts, piscine : T2 comprenant pièce de vie ouverte sur cuisine aménagée / équipée, salle de bains, chambre avec placards. Nombreux rangements. Balcon, place de parking LIBRE MI MAI Exclusivité ORPI Foch Immobilier : 02.33.32.70.80 Loyer mensuel 380 euros - Charges locatives 40 euros - Honoraire TTC à la charge du locataire 312.8 euros dont 103.8 euros d\'honoraires d\'état des lieux.', '5cbd8c2b8e651371728998.jpg', '2019-04-22 09:40:59', 1, 1, 'Gaz', 34, '460', 0, 'Alençon', 'sdfsd', 95200, 'oui', 1, '2019-04-22 09:40:59'),
+(7, 1, 1, 'Appartement à louer - Ozoir-la-Ferrière', 'Ozoir centre ville, au calme, au 2 ème et dernier étage avec ascenseur d\'une petite résidence de standing BBC de 2013 ( basse consommation), adorable 2 pièces en duplex de 39m2 habitables ( 50 m2 au sol), comprenant, beau séjour, coin cuisine aménagé, grande chambre avec placard, salle de bains, wc. Garage fermé. Chauffage au sol par pompe à chaleur. Très belles prestations. Loyer 750 euros chauffage et eaux compris. LIBRE LE 18 MAI 2019 Loyer mensuel 600 euros - Charges locatives 150 euros - Honoraire TTC à la charge du locataire 507 euros dont 117 euros d\'honoraires d\'état des lieux.', '5cbd8c6344b40300552103.jpg', '2019-04-22 09:41:55', 3, 5, 'Gaz', 87, '750', 0, 'Ozoir-la-Ferrière', 'sdfsdf', 25487, 'no', 1, '2019-04-22 09:41:55'),
+(8, 1, 1, 'Appartement à louer - Châtillon', 'CHATILLON- Dans un quartier pavillonnaire au calme et à 5mn du métro Ligne 13 au pied du tram T6 Dans une résidence récente de standing, magnifique 2/3 pièces de 45m2 comprenant : Entrée, cuisine aménagée et équipée, séjour, 1 chambres, dressing, salle d\'eau avec wc et cave Chauffage et eau chaude collectifs Disponible début mai Loyer mensuel 930 euros - Charges locatives 130 euros - Honoraire TTC à la charge du locataire 669 euros dont 133.8 euros d\'honoraires d\'état des lieux.', '5cbd8c931f3c1494765934.jpg', '2019-04-22 09:42:42', 3, 8, 'Electrique', 68, '1060', 0, 'Châtillon', 'sdfsd', 57984, 'oui', 1, '2019-04-22 09:42:42'),
+(9, 1, 1, 'Appartement à louer - Fontainebleau', 'Résidence LE JAGUAR - Idéalement située à proximité des grands axes, de la foret et des écoles ; à 800 mètres de l\'hyper centre et à 500 mètres du complexe sportif. Nous vous proposons un appartement neuf livré en 2016 dans cette petite copropriété de 13 appartements avec ascenseur, parking en sous-sol, vidéophone. Quarante quatre mètres carrés organisés en une très belle pièce à vivre équipée d\'une magnifique cuisine aménagée (hotte, plaque, four, micro ondes), belle entrée avec dressing, spacieuse salle d\'eau contemporaine carrelée du sol au plafond éclairée par une grande porte fenêtre. Wc séparés. Parking en sous-sol. Disponible à compter du 21.07.2019. Loyer : 677 euros + provisions pour charges : 50 euros - Dépôt de garantie : 677 euros - Honoraires : 484 euros. Loyer mensuel 677 euros - Charges locatives 50 euros - Honoraire TTC à la charge du locataire 484 euros dont 132 euros d\'honoraires d\'état des lieux.', '5cbd8cd15380d692270381.jpg', '2019-04-22 09:43:45', 3, 3, 'Electrique', 58, '727', 0, 'Fontainebleau', 'sdfsdf', 78954, 'oui', 1, '2019-04-22 09:43:45'),
+(10, 1, 1, 'Appartement à louer -  Compiègne', 'COMPIEGNE Centre Ville, à deux pas de l\'UTC Studio entièrement refait de 19m2 se composant d\'une pièce de vie principale, un coin kitchenette, une salle de bains avec WC. Petite mono-propriété calme et très bien placée ! Idéal étudiant !! Disponible mi juillet Loyer mensuel 350 euros - Charges locatives 25 euros (Régularisation annuelle) - Honoraire TTC à la charge du locataire 209 euros dont 57 euros d\'honoraires d\'état des lieux.', '5cbd8d006b311145823682.jpg', '2019-04-22 09:44:32', 2, 4, 'Electrique', 19, '375', 0, 'Compiègne', 'sdfsdf', 95487, 'no', 1, '2019-04-22 09:44:32'),
+(11, 8, 16, 'Maison à vendre - Les Mathes', 'LA PALMYRE, dans une résidence boisée avec piscine, à 400 m du Centre Ville. VILLA comprenant : Séjour avec coin cuisine équipée, Chambre, Salle d\'eau et wc séparé. A l\'étage : une Mezzanine. Grande TERRASSE et PARKING privé. Classe Energie : D Copropriété de 477 lots Charges annuelles : 840 euros. 138450 euros (130000 euros Hors Honoraires) - Honoraires : 6.5 % TTC à la charge de l\'acquéreur.', '5cbd976c582f2311014836.jpg', '2019-04-22 10:28:59', 3, NULL, 'Gaz', 45, '138450', 0, 'Les Mathes', 'sdfsdf', 56874, 'oui', 2, '2019-04-22 10:28:56'),
+(12, 8, 16, 'Maison à vendre - La Crau', 'LES MATHES, au calme, à proximité du Centre Ville. Belle MAISON dans une petite résidence avec peu de charges et comprenant : Séjour avec belle Cuisine ouverte équipée, 2 Chambres avec placard, Mezzanine, Salle d\'eau et wc séparé. COUR en façade et une belle TERRASSE avec store électrique et JARDINET sur l\'arrière. PARKING privé et LOCAL à vélos. Classe Energie : D Copropriété de 40 lots Charges annuelles : 252 euros. 220495 euros (209000 euros Hors Honoraires) - Honoraires : 5.5 % TTC à la charge de l\'acquéreur.', '5cbd97ba275ef732094179.jpg', '2019-04-22 10:30:18', 3, 0, 'Gaz', 62, '220495', 0, 'La Crau', 'sdfsd', 65874, 'oui', 2, '2019-04-22 10:30:17'),
+(13, 8, 16, 'Maison à vendre - Saint-Palais-sur-Mer', 'SAINT PALAIS SUR MER, à environ 1,4 km Plage et 800 m Commerces. MAISON à rafraîchir comprenant de plain-pied : Entrée et dégagement avec placards, Séjour en L avec cheminée ouvrant sur une autre pièce avec cheminée, Cuisine, 3 Chambres (dont 2 avec placard), Salle d\'eau et wc séparé avec lave-mains. Grand GARAGE de 63 m2 en sous-sol et ABRI voiture de 30 m2 attenant à la maison. Superbe TERRAIN clos de 2168 m2 avec Abris de jardin. 365750 euros (350000 euros Hors Honoraires) - Honoraires : 4.5 % TTC à la charge de l\'acquéreur.', '5cbd980ac250f358226158.jpg', '2019-04-22 10:31:38', 4, 0, 'Electrique', 134, '365750', 0, 'Saint-Palais-sur-Mer', 'sdfsdf', 68747, 'oui', 2, '2019-04-22 10:31:38');
 
 -- --------------------------------------------------------
 
@@ -140,15 +142,15 @@ CREATE TABLE IF NOT EXISTS `type` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `title` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Déchargement des données de la table `type`
 --
 
 INSERT INTO `type` (`id`, `title`) VALUES
-(1, 'Appartements'),
-(2, 'Maison');
+(1, 'Appartement'),
+(16, 'Maison');
 
 -- --------------------------------------------------------
 
@@ -168,16 +170,20 @@ CREATE TABLE IF NOT EXISTS `user` (
   `city` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `postal_code` int(11) NOT NULL,
   `phone_number` int(11) NOT NULL,
-  PRIMARY KEY (`id`)
+  `status` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `is_active` tinyint(1) NOT NULL,
+  `roles` longtext COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '(DC2Type:array)',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `UNIQ_8D93D649E7927C74` (`email`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Déchargement des données de la table `user`
 --
 
-INSERT INTO `user` (`id`, `firstname`, `lastname`, `email`, `password`, `gender`, `address`, `city`, `postal_code`, `phone_number`) VALUES
-(1, 'Sagayaraj', 'JOSEPH', 'bjsahay@gamil.com', '$2y$12$RRoaoSapM0OfAe0LY.O50OSnw5tAdGUuS2bL4MdZXctBsuAZmgnhW', 'Monsieur', '1 allée de l\'arlequin', 'Nanterre', 92000, 767144163),
-(2, 'Admin', 'Admin', 'admin@gmail.com', '$2y$12$RV81LfqBuuCdePskMHZRQOw2r5hWSjnJ0IPjmcZFMU31bWXCkfWHW', 'Monsieur', '58 rue de paris', 'paris', 75012, 654652131);
+INSERT INTO `user` (`id`, `firstname`, `lastname`, `email`, `password`, `gender`, `address`, `city`, `postal_code`, `phone_number`, `status`, `is_active`, `roles`) VALUES
+(1, 'Sagayaraj', 'Joseph', 'bjsahay@gmail.com', '$2y$12$aCIfc/F5j4UXIlHRWrUOted3LT8Cy4Inw8ob0WDvUdK1bNj5triZO', 'Monsieur', '11 allée de l\'arlequin', 'nanterre', 92000, 767144163, 'admin', 1, 'a:1:{i:0;s:10:\"ROLE_ADMIN\";}'),
+(2, 'sylvie', 'joseph', 'sylvie@gmail.com', '$2y$12$zku8xY92lvNKmRPNT31Pd.D3DHX8OV3L56a4/oRy6f2g4iVxIpQ1i', 'Madame', '147 hello', 'pari', 75012, 21356487, 'user', 1, 'a:1:{i:0;s:9:\"ROLE_USER\";}');
 
 --
 -- Contraintes pour les tables déchargées

@@ -1,65 +1,65 @@
 <!-- Header -->
 <header id="head">
-    <div class="container">
-        <div class="fluid_container">
-            <div class="camera_wrap camera_emboss pattern_1" id="camera_wrap_4">
-                <div data-src="assets/images/slides/img1.jpg" data-thumb="assets/images/slides/thumbs/img1.jpg"></div>
-                <div data-src="assets/images/slides/img2.jpg" data-thumb="assets/images/slides/thumbs/img2.jpg"></div>
-                <div data-src="assets/images/slides/img3.jpg" data-thumb="assets/images/slides/thumbs/img3.jpg"></div>
-            </div>
-            <!-- #camera_wrap_3 -->
-        </div>
-        <!-- .fluid_container -->
+  <div class="container">
+    <div class="fluid_container">
+      <div class="camera_wrap camera_emboss pattern_1" id="camera_wrap_4">
+        <div data-src="assets/images/slides/img1.jpg" data-thumb="assets/images/slides/thumbs/img1.jpg"></div>
+        <div data-src="assets/images/slides/img2.jpg" data-thumb="assets/images/slides/thumbs/img2.jpg"></div>
+        <div data-src="assets/images/slides/img3.jpg" data-thumb="assets/images/slides/thumbs/img3.jpg"></div>
+      </div>
+      <!-- #camera_wrap_3 -->
     </div>
+    <!-- .fluid_container -->
+  </div>
 </header>
 <!-- /Header -->
 
 <div class="head-box" style="margin-top:-20px;">
-    <div class="container">
-        <div class="row">
-            <div class="col-sm-12">
-                <div class="search-panel">
-                    <form action="{{path('search')}}" class="form-inline" role="form" method="post">
-                        <div
-                            class="form-group">
-                            {# <input type="text" class="form-control" id="city" placeholder="Type" autocomplete="off"> #}
-                            <select class="form-control" id="" name="type">
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="search-panel">
+          <form action="{{path('search')}}" class="form-inline" role="form" method="post">
+            <div
+              class="form-group">
+              {# <input type="text" class="form-control" id="city" placeholder="Type" autocomplete="off"> #}
+              <select class="form-control" id="" name="type">
 
-                                {% for type in types %}
-                                    <option value="{{type.id}}">{{type.title}}</option>
-                                {% endfor %}
-                            </select>
-                        </div>
-                        <div class="form-group hidden-xs adv">
-                            <div class="input-group">
-                                <div class="input-group-addon">$</div>
-                                <input class="form-control price" placeholder="Ville" type="text">
-                            </div>
-                        </div>
-
-                        <div class="form-group hidden-xs adv">
-                            <div class="input-group">
-                                <div class="input-group-addon">$</div>
-                                <input class="form-control price" placeholder="Prix" type="text">
-                            </div>
-                        </div>
-                        {# <div class="form-group hidden-xs adv">
-                                                    <div class="checkbox custom-checkbox"><label><input type="checkbox"><span class="fa fa-check"></span> For Rent</label></div>
-                                                </div>
-                                                <div class="form-group hidden-xs adv">
-                                                    <div class="checkbox custom-checkbox"><label><input type="checkbox"><span class="fa fa-check"></span> For Sale</label></div>
-                                                </div> #}
-                        <div
-                            class="form-group">
-                            {# <a href="{{path('search')}}" class="btn btnsearch">Search</a>  #}
-                            <button class="btn btn-primary" type="submit">Search</button>
-                        </div>
-                    </form>
-                </div>
+                {% for type in types %}
+                  <option value="{{type.id}}">{{type.title}}</option>
+                {% endfor %}
+              </select>
             </div>
-            <!-- end .col-sm-12 -->
+            <div class="form-group hidden-xs adv">
+              <div class="input-group">
+                <div class="input-group-addon">$</div>
+                <input class="form-control price" placeholder="Ville" type="text">
+              </div>
+            </div>
+
+            <div class="form-group hidden-xs adv">
+              <div class="input-group">
+                <div class="input-group-addon">$</div>
+                <input class="form-control price" placeholder="Prix" type="text">
+              </div>
+            </div>
+            {# <div class="form-group hidden-xs adv">
+                                                                <div class="checkbox custom-checkbox"><label><input type="checkbox"><span class="fa fa-check"></span> For Rent</label></div>
+                                                            </div>
+                                                            <div class="form-group hidden-xs adv">
+                                                                <div class="checkbox custom-checkbox"><label><input type="checkbox"><span class="fa fa-check"></span> For Sale</label></div>
+                                                            </div> #}
+            <div
+              class="form-group">
+              {# <a href="{{path('search')}}" class="btn btnsearch">Search</a>  #}
+              <button class="btn btn-primary" type="submit">Search</button>
+            </div>
+          </form>
         </div>
-        <!-- ene .row -->
+      </div>
+      <!-- end .col-sm-12 -->
     </div>
-    <!--end .container -->
+    <!-- ene .row -->
+  </div>
+  <!--end .container -->
 </div>

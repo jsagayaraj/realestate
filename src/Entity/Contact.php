@@ -11,14 +11,14 @@ class Contact
   /**
    * @var string|null
    * @Assert\NotBlank()
-   * @Assert\Length(min-2, max-100)
+   * @Assert\Length(min=2, max=100)
    */
   private $firstname;
 
   /**
    * @var string|null
    * @Assert\NotBlank()
-   * @Assert\Length(min-2, max-100)
+   * @Assert\Length(min=2, max=100)
    */
   private $lastname;
 
@@ -42,7 +42,7 @@ class Contact
     /**
    * @var string|null
    * @Assert\NotBlank()
-   * @Assert\Length(min-10)
+   * @Assert\Length(min=10)
    */
   private $message;
 
@@ -131,10 +131,10 @@ class Contact
    *
    * @return  string|null
    */ 
-  public function getEmail()
-  {
-    return $this->email;
-  }
+   public function getEmail()
+   {
+     return $this->email;
+   }
 
   /**
    * Set the value of email
@@ -192,11 +192,11 @@ class Contact
    * @return  self
    */ 
   public function setProperty($property)
-  {
-    $this->property = $property;
+   {
+     $this->property = $property;
 
-    return $this;
-  }
+     return $this;
+   }
 
   
-}
+} 

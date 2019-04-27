@@ -2,17 +2,20 @@
 
 namespace App\Entity;
 
+
 use Doctrine\ORM\Mapping as ORM;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+
 
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
+ * @UniqueEntity(fields="email", message="Cet email est déjà enregistré en base.")
  */
-class User implements UserInterface
+class User implements UserInterface, \Serializable
 {
     /**
      * @ORM\Id()
@@ -23,28 +26,35 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank()
+     * @Assert\Length(min="2", max="15")
      */
     private $firstname;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank()
+     * @Assert\Length(min="2", max="15")
      */
     private $lastname;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, unique=true)
+     * @Assert\NotBlank()
+     * @Assert\Length(max=60)
+     * @Assert\Email(message = "The email is not a valid email.", checkMX = true)
      */
     private $email;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\Length(min="8", minMessage="Votre mod de pass doit faire minimum 8 caractères") 
-     * @Assert\EqualTo(propertyPath="confirmPassword")
+     * @Assert\Length(min="8", minMessage="Votre mod de passe doit faire minimum 8 caractères") 
+     * 
      */
     private $password;
 
     /**
-     * @Assert\EqualTo(propertyPath="password", message="Vous n'avez pas tapé le même mot de        passe")
+     * @Assert\EqualTo(propertyPath="password", message="Vous n'avez pas tapé le même mot de passe")
      */
     private $confirmPassword;
 
@@ -65,13 +75,31 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="integer")
+     * @Assert\Regex("/^[0-9]{5}$/")
      */
     private $postalCode;
 
     /**
      * @ORM\Column(type="integer")
+     * 
      */
     private $phoneNumber;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $status;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $isActive;
+
+    /**
+     * @ORM\Column(type="array")
+     */
+    private $roles = [];
+
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Comments", mappedBy="user")
@@ -81,6 +109,11 @@ class User implements UserInterface
     public function __construct()
     {
         $this->comments = new ArrayCollection();
+        
+        //we set isActive true by default for user authentification
+        $this->isActive = true;
+        // may not be needed, see section on salt below
+        // $this->salt = md5(uniqid('', true));
     }
 
     public function getId(): ?int
@@ -237,14 +270,96 @@ class User implements UserInterface
         return $this;
     }
 
-    public function getRoles()
+    public function getStatus(): ?string
     {
-        return ['ROLE_USER'];
-    }   
-    public function getSalt(){}
+        return $this->status;
+    }
 
-    public function eraseCredentials(){}
+    
+    public function setStatus(string $status): self
+    {
+        $this->status = $status;
+        return $this;
+    }
+
+    public function getIsActive(): ?bool
+    {
+        return $this->isActive;
+    }
+
   
-  
-    public function getUsername(){}
+    public function setIsActive($isActive): self
+    {
+        $this->isActive = $isActive;
+
+        return $this;
+    }
+
+    public function getRoles() {
+        if (empty($this->roles)) {
+            return ['ROLE_USER'];
+        }
+        return $this->roles;
+    }
+
+    public function setRoles(array $roles): self
+    {
+        $this->roles = $roles;
+
+        return $this;
+    }
+
+    //user authentication 
+
+    // public function __construct()
+    // {
+    //     $this->isActive = true;
+    //     // may not be needed, see section on salt below
+    //     // $this->salt = md5(uniqid('', true));
+    // }
+
+    public function getUsername()
+    {
+        return $this->email;
+    }
+
+    public function getSalt() {
+        // you *may* need a real salt depending on your encoder
+        // see section on salt below
+        return null;
+    }
+
+
+    function addRole($role) {
+        $this->roles[] = $role;
+    }
+
+    public function eraseCredentials() {
+        
+    }
+
+    /** @see \Serializable::serialize() */
+    public function serialize() {
+        return serialize(array(
+            $this->id,
+            $this->email,
+            $this->password,
+            $this->isActive,
+                // see section on salt below
+                // $this->salt,
+        ));
+    }
+
+    /** @see \Serializable::unserialize() */
+    public function unserialize($serialized) {
+        list (
+            $this->id,
+            $this->email,
+            $this->password,
+            $this->isActive,
+            // see section on salt below
+            // $this->salt
+            ) = unserialize($serialized);
+    }
+
 }
