@@ -6,8 +6,8 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Constraints as Assert;
-use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Security\Core\User\AdvancedUserInterface;
 
 
 
@@ -15,7 +15,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
  * @UniqueEntity(fields="email", message="Cet email est déjà enregistré en base.")
  */
-class User implements UserInterface, \Serializable
+class User implements AdvancedUserInterface, \Serializable
 {
     /**
      * @ORM\Id()
@@ -26,37 +26,32 @@ class User implements UserInterface, \Serializable
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\NotBlank()
+     * @Assert\NotBlank(message="Valid first name is required")
      * @Assert\Length(min="2", max="15")
      */
     private $firstname;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\NotBlank()
+     * @Assert\NotBlank(message="Valid last name is required")
      * @Assert\Length(min="2", max="15")
      */
     private $lastname;
 
     /**
      * @ORM\Column(type="string", length=255, unique=true)
-     * @Assert\NotBlank()
+     * @Assert\NotBlank(message ="Please enter a valid email address")
      * @Assert\Length(max=60)
      * @Assert\Email(message = "The email is not a valid email.", checkMX = true)
      */
     private $email;
 
     /**
-     * @ORM\Column(type="string", length=255)
-     * @Assert\Length(min="8", minMessage="Votre mod de passe doit faire minimum 8 caractères") 
-     * 
+     * @ORM\Column(type="string")
+     * @Assert\NotBlank(message="Please enter a valid password")
      */
     private $password;
 
-    /**
-     * @Assert\EqualTo(propertyPath="password", message="Vous n'avez pas tapé le même mot de passe")
-     */
-    private $confirmPassword;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -96,6 +91,11 @@ class User implements UserInterface, \Serializable
     private $isActive;
 
     /**
+     * @ORM\Column(type="string", nullable=true, length=30)
+     */
+    private $confirmationToken;
+
+    /**
      * @ORM\Column(type="array")
      */
     private $roles = [];
@@ -110,8 +110,8 @@ class User implements UserInterface, \Serializable
     {
         $this->comments = new ArrayCollection();
         
-        //we set isActive true by default for user authentification
-        $this->isActive = true;
+        //we set isActive false by default for user 
+        $this->isActive = false;
         // may not be needed, see section on salt below
         // $this->salt = md5(uniqid('', true));
     }
@@ -169,16 +169,16 @@ class User implements UserInterface, \Serializable
         return $this;
     }
 
-    public function getConfirmPassword(): ?string
-    {
-        return $this->confirmPassword;
-    }
+    // public function getConfirmPassword(): ?string
+    // {
+    //     return $this->confirmPassword;
+    // }
 
-    public function setConfirmPassword(string $confirmPassword): self
-    {
-        $this->confirmPassword = $confirmPassword;
-        return $this;
-    }
+    // public function setConfirmPassword(string $confirmPassword): self
+    // {
+    //     $this->confirmPassword = $confirmPassword;
+    //     return $this;
+    // }
     public function getGender(): ?string
     {
         return $this->gender;
@@ -295,6 +295,16 @@ class User implements UserInterface, \Serializable
         return $this;
     }
 
+    public function getConfirmationToken(): ?string
+    {
+        return $this->confirmationToken;
+    }
+
+    public function setConfirmationToken($confirmationToken): self
+    {
+        $this->confirmationToken = $confirmationToken;
+        return $this;
+    }
     public function getRoles() {
         if (empty($this->roles)) {
             return ['ROLE_USER'];
@@ -308,15 +318,6 @@ class User implements UserInterface, \Serializable
 
         return $this;
     }
-
-    //user authentication 
-
-    // public function __construct()
-    // {
-    //     $this->isActive = true;
-    //     // may not be needed, see section on salt below
-    //     // $this->salt = md5(uniqid('', true));
-    // }
 
     public function getUsername()
     {
@@ -362,4 +363,24 @@ class User implements UserInterface, \Serializable
             ) = unserialize($serialized);
     }
 
+    
+    public function isAccountNonExpired()
+    {
+        return true;
+    }
+    
+    public function isAccountNonLocked()
+    {
+        return true;
+    }
+
+    public function isCredentialsNonExpired()
+    {
+        return true;
+    }
+    
+    public function isEnabled()
+    {
+        return $this->isActive;
+    }
 }

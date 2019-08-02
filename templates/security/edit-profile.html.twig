@@ -1,0 +1,225 @@
+{% extends "base.html.twig" %}
+{% block title  'Registration'%}
+{% block stylesheets %}
+ <style>
+  .form-check {
+   position: relative;
+   display: inline-block;
+   padding-left: 1.25rem;
+  }
+
+  .form-check-r {
+   padding-left: 1.2rem;
+  }
+
+  .form-check:last-child {
+   padding-left: 5rem;
+  }
+ </style>
+
+{% endblock %}
+{% block body %}
+ {% include "includes/menu.html.twig" %}
+ <!--/ Intro Single star /-->
+ <section class="intro-single">
+  <div class="container">
+   <div class="row">
+    <div class="col-md-12 col-lg-8">
+     <div class="title-single-box">
+      <h1 class="title-single">Modifier mon profil</h1>
+     </div>
+    </div>
+   </div>
+   <hr>
+  </div>
+ </section>
+ <!--/ Intro Single End /-->
+
+
+<!--/ Contact Star /-->
+<section>
+ <div class="container">
+  <div class="row">
+
+   <div class="col-md-8 offset-md-2 section-b2">
+    <div class="card">
+     <div class="card-body">
+      
+
+      {{form_start(form, {attr:{'class':'form-a'}})}}
+      {# <form action="" class="form-a contactForm" method="post" role="form">
+              <div id="sendmessage">Your message has been sent. Thank you!</div>
+              <div id="errormessage"></div>  #}
+
+      <div class="row">
+       <div
+        class="col-md-12 mb-3">
+        {# <input class="form-check-input" id="exampleCheck1" type="checkbox">Miss. #}
+        {{form_widget(form.gender)}}
+
+
+        {# <div class="form-check">
+                    <label class="form-check-label" for="exampleCheck1">
+                    <input class="form-check-input" id="exampleCheck1" type="checkbox">Mr.
+                    </label>      
+                  </div> #}
+       </div>
+      </div>
+
+      <div class="row">
+       <div class="col-md-6 mb-3">
+        <div class="form-group">
+         <label form="user_firstname">Prenom</label>
+         {# <input class="form-control form-control-a" data-msg="Please enter a valid email" data-rule="email" name="email"  type="text"> #}
+         {{form_widget(form.firstname, {attr:{'class':'form-control form-control-a'}})}}
+         <div class="invalid-feedback">
+          {{form_errors(form.firstname)}}
+
+         </div>
+        </div>
+       </div>
+       <div class="col-md-6 mb-3">
+        <div class="form-group">
+         <label for="user_lastname">Nom</label>
+         {# <input class="form-control form-control-a" data-msg="Please enter a valid email" data-rule="email" name="email"  type="text"> #}
+         {{form_widget(form.lastname, {attr:{'class':'form-control form-control-a'}})}}
+
+         <div class="validation"></div>
+        </div>
+       </div>
+      </div>
+
+      <div class="row">
+       <div class="col-md-6 mb-3">
+        <div class="form-group">
+         <label for="user_email">Email</label>
+         {# <input class="form-control form-control-a" data-msg="Please enter a valid email" data-rule="email" name="email" type="email"> #}
+         {{form_widget(form.email, {attr:{'class':'form-control form-control-a'}})}}
+
+         <div class="validation"></div>
+        </div>
+       </div>
+       <div class="col-md-6 mb-3">
+        <div class="form-group">
+         <label for="user_phoneNumber">Télephone Number</label>
+         {# <input class="form-control form-control-a" data-msg="Please enter a valid email" data-rule="email" name="email" type="text"> #}
+         {{form_widget(form.phoneNumber, {attr:{'class':'form-control form-control-a'}})}}
+
+         <div class="validation"></div>
+        </div>
+       </div>
+      </div>
+
+     
+      <div class="row">
+       <div class="col-md-6 mb-3">
+        <div class="form-group">
+         <label for="user_city">Ville</label>
+         {# <input class="form-control form-control-a" data-msg="Please enter a valid email" data-rule="email"  type="text"> #}
+         {{form_widget(form.city, {attr:{'class':'form-control form-control-a'}})}}
+
+         <div class="validation"></div>
+        </div>
+       </div>
+       <div class="col-md-6 mb-3">
+        <div class="form-group">
+         <label for="user_postalCode">Code postal</label>
+         {# <input class="form-control form-control-a" data-msg="Please enter a valid email" data-rule="email" type="text"> #}
+         {{form_widget(form.postalCode, {attr:{'class':'form-control form-control-a'}})}}
+
+         <div class="validation"></div>
+        </div>
+       </div>
+      </div>
+
+      <div class="row">
+       <div class="col-md-12 mb-3">
+        <div class="form-group">
+         <label for="user_address">Adresse</label>
+         {# <textarea  class="form-control" id="" ></textarea> #}
+         {{form_widget(form.address, {attr:{'class':'form-control form-control-a'}})}}
+
+         <div class="validation"></div>
+        </div>
+       </div>
+      </div>
+
+      <div class="row">
+       <div class="col-md-12">
+        <button class="btn btn-a" type="submit">Modifier</button>
+       </div>
+      </div>
+
+     </div>
+     {{form_end(form)}}
+     {# </form> #}
+    </div>
+   </div>
+  </div>
+ </div>
+</section>
+<!--/ Contact End /-->
+
+
+
+ {# <div class="container">
+       
+       {{form_start(form)}}
+       <div class="row">
+           
+           {{form_row(form.gender)}}
+         
+         <div class="col-md-6">
+           {{form_row(form.firstname, 
+                 {
+                     'label': 'Prenom', 
+                     attr:
+                     {
+                         'placeholder': 'Entre Votre Nom'
+                     }
+                 }
+                 )}}
+         </div>
+         <div class="col-md-6">
+           {{form_row(form.lastname)}}
+         </div>
+       </div>
+ 
+       <div class="row">
+         <div class="col-md-6">
+           {{form_row(form.email)}}
+         </div>
+         <div class="col-md-6">
+           {{form_row(form.phoneNumber)}}
+         </div>
+       </div>
+ 
+       <div class="row">
+         <div class="col-md-6">
+           {{form_row(form.password)}}
+         </div>
+         <div class="col-md-6">
+           {{form_row(form.confirmPassword)}}
+         </div>
+       </div>
+ 
+ 
+       <div class="row">
+         <div class="col-md-6">
+           {{form_row(form.city)}}
+         </div> 
+         <div class="col-md-6">
+           {{form_row(form.postalCode)}}
+         </div>
+       </div>
+ 
+       <div class="row">
+         <div class="col-md-6">
+           {{form_row(form.address)}}
+         </div>
+       </div>
+       <button class="btn btn-primary" type="submit">Enregistrer</button>
+       {{form_end(form)}}
+     </div> #}
+{% endblock %}
+

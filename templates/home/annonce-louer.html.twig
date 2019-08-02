@@ -1,53 +1,106 @@
 {% extends "base.html.twig" %}
-{% block title 'Annonce Louer' %}
+{% block title 'Annonces' %}
 
-    {% block body %}
-        {# include menu #}
-        {% include "include/menu.html.twig" %}
+  {% block body %}
+    {# include menu #}
+    {% include "includes/menu.html.twig" %}
 
 
-        <header class="secondary" id="head">
-            <div class="container">
-                <div class="row">
-                    <h1>Louer</h1>
+    <!--/ Intro Single star /-->
+    <section class="intro-single">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12 col-lg-8">
+            <div class="title-single-box">
+              <h1 class="title-single">Biens à Louer</h1>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!--/ Intro Single End /-->
+
+    <!--/ Property Grid Star /-->
+    <section class="property-grid grid">
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-12">
+            <div class="grid-option">
+              <form>
+                <select class="custom-select">
+                  <option selected>All</option>
+                  <option value="1">New to Old</option>
+                  <option value="2">For Rent</option>
+                  <option value="3">For Sale</option>
+                </select>
+              </form>
+            </div>
+          </div>
+
+          {% for annonce in annonce_louer %}
+
+            <div class="col-md-4">
+              <div class="card-box-a card-shadow">
+                <div class="img-box-a">
+                  <img alt="" class="img-a img-fluid" src="{{vich_uploader_asset(annonce, 'imageFile')}}">
                 </div>
-            </div>
-        </header>
-
-        <!-- container -->
-        <section class="container">
-            <div
-                class="row">
-                <!-- main content -->
-                {% for annonce in annonce_louer %}
-                    <div class="col-lg-4 col-md-4 col-sm-12">
-                        <div class="newsBox">
-                            <div class="thumbnail">
-                                <figure>
-                                    <img alt="" src="{{vich_uploader_asset(annonce, 'imageFile')}}"></figure>
-                                <div class="caption maxheight2">
-                                    <div class="box_inner">
-                                        <div class="box">
-                                            <p class="title">
-                                                <strong>{{annonce.title}}</strong>
-                                            </p>
-                                            <p>Lorem ipsum dolor sit amet, conc tetu er adipi scing. Praesent ves tibuum molestie lacuiirhs. Aenean.</p>
-                                        </div>
-                                        <div>
-                                            <a class="btn-inline" href="#">more</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                <div class="card-overlay">
+                  <div class="card-overlay-a-content">
+                    <div class="card-header-a">
+                      <h2 class="card-title-a">
+                        <a href="#">{{annonce.title}}</a>
+                      </h2>
                     </div>
-                {% endfor %}
-                <!-- /main -->
+                    <div class="card-body-a">
+                      <div class="price-box d-flex">
+                        <span class="price-a">€
+                          {{annonce.price}}</span>
+                      </div>
+                      <a class="link-a" href="{{path('property_show', {id:annonce.id, slug:annonce.slug})}}">Plus de Details
+                        <i class="fa fa-angle-right"></i>
+                      </a>
+                    </div>
+                    <div class="card-footer-a">
+                      <ul class="card-info d-flex justify-content-around">
+                        <li>
+                          <h4 class="card-info-title">Surface</h4>
+                          <span>{{ annonce.surface }}M²</span>
+                        </li>
+                        <li>
+                          <h4 class="card-info-title">Pièces</h4>
+                          <span>{{ annonce.rooms }}</span>
+                        </li>
+                        <li>
+                          <h4 class="card-info-title">Chambres</h4>
+                          <span>{{ annonce.rooms -1}}</span>
+                        </li>
+                        <li>
+                          <h4 class="card-info-title">Etage</h4>
+                          {% if annonce.floor == 0 %}
+                            <span>Rez de Chaussé
+                            </span>
+                          {% else %}
+                            <span>{{annonce.floor}}
+
+                            </span>
+                          {% endif %}
+                        </li>
+                      </ul>
+
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
-        </section>
+          {% endfor %}
+
+        </div>
+      </div>
+    </section>
+    <!--/ Property Grid End /-->
 
 
-        {# include footer #}
-        {% include "include/footer.html.twig" %}
+    {# include footer #}
+    {% include "includes/footer.html.twig" %}
 
-    {% endblock %}
+  {% endblock %}

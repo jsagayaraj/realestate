@@ -9,20 +9,23 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
 class UserType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        $user = $options['user'];
         $builder
             ->add('firstname')
             ->add('lastname')
             ->add('email')
-            ->add('password', PasswordType::class)
-            ->add('confirmPassword', PasswordType::class)
-            ->add('gender', ChoiceType::class,[
-                'label' => false,
+            ->add('password', RepeatedType::class, array(
+                'type' => PasswordType::class
+            ))
+            //->add('confirmPassword', PasswordType::class)
+            ->add('gender', ChoiceType::class,[                
                 'choices' => [
                     'Monsieur' => 'Monsieur',
                     'Madame' => 'Madame',
@@ -39,6 +42,8 @@ class UserType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => User::class,
+            'user' => null // modifier profile
+            
         ]);
     }
 }

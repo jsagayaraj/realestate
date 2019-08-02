@@ -8,16 +8,182 @@
               padding-left: 1.25rem;
           }
 
+          .form-check-r{
+            padding-left: 1.2rem;
+          }
+
           .form-check:last-child{
               padding-left: 5rem;
-          }
+          } 
       </style>
         
   {% endblock %}
   {% block body %}
-    {{ include("include/menu.html.twig") }}
-    <div class="container">
-      <h1>Registration</h1>
+  {% include "includes/menu.html.twig" %}   
+<!--/ Intro Single star /-->
+<section class="intro-single">
+ <div class="container">
+  <div class="row">
+   <div class="col-md-12 col-lg-8">
+    <div class="title-single-box">
+     <h1 class="title-single">Sign Up</h1>
+    </div>
+   </div>
+  </div>
+  <hr>
+ </div>
+</section>
+<!--/ Intro Single End /-->
+
+
+<!--/ Contact Star /-->
+<section>
+ <div class="container">
+   <div class="row">
+
+    <div class="col-md-8 offset-md-2 section-b2">
+      <div class="card">
+      <div class="card-body">
+        <h5 class="card-titile">Sign up</h5>
+        <p class="card-text">If you have already an account please <a href="{{path('login')}}">Signin</a></p>
+
+{{form_start(form, {attr:{'class':'form-a'}})}}
+        {# <form action="" class="form-a contactForm" method="post" role="form">
+        <div id="sendmessage">Your message has been sent. Thank you!</div>
+        <div id="errormessage"></div>  #}
+        
+        <div class="row">
+        <div class="col-md-12 mb-3">           
+            {# <input class="form-check-input" id="exampleCheck1" type="checkbox">Miss. #}
+{{form_widget(form.gender)}}
+           
+          
+            {# <div class="form-check">
+            <label class="form-check-label" for="exampleCheck1">
+            <input class="form-check-input" id="exampleCheck1" type="checkbox">Mr.
+            </label>      
+          </div> #}
+        </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <div class="form-group">
+              <label for="">Prenom</label>
+              {# <input class="form-control form-control-a" data-msg="Please enter a valid email" data-rule="email" name="email"  type="text"> #}
+              {{form_widget(form.firstname, {attr:{'class':'form-control form-control-a'}})}}
+              <div class="invalid-feedback">
+              {{form_errors(form.firstname)}}
+
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 mb-3">
+          <div class="form-group">
+            <label for="">Nom</label>
+            {# <input class="form-control form-control-a" data-msg="Please enter a valid email" data-rule="email" name="email"  type="text"> #}
+{{form_widget(form.lastname, {attr:{'class':'form-control form-control-a'}})}}
+
+            <div class="validation"></div>
+          </div>
+          </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6 mb-3">
+              <div class="form-group">
+              <label for="">Email</label>
+              {# <input class="form-control form-control-a" data-msg="Please enter a valid email" data-rule="email" name="email" type="email"> #}
+{{form_widget(form.email, {attr:{'class':'form-control form-control-a'}})}}
+
+              <div class="validation"></div>
+              </div>
+            </div>
+            <div class="col-md-6 mb-3">
+              <div class="form-group">
+              <label for="">Télephone Number</label>
+              {# <input class="form-control form-control-a" data-msg="Please enter a valid email" data-rule="email" name="email" type="text"> #}
+{{form_widget(form.phoneNumber, {attr:{'class':'form-control form-control-a'}})}}
+
+              <div class="validation"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6 mb-3">
+              <div class="form-group">
+              <label for="">Mot de passe</label>
+              {# <input class="form-control form-control-a" data-msg="Please enter a valid email" data-rule="email" type="password"> #}
+{{form_widget(form.password.first, {attr:{'class':'form-control form-control-a'}})}}
+
+              <div class="validation"></div>
+              </div>
+            </div>
+            <div class="col-md-6 mb-3">
+              <div class="form-group">
+              <label for="">Confirm Mot de passe</label>
+              {# <input class="form-control form-control-a" data-msg="Please enter a valid email" data-rule="email"  type="password"> #}
+{{form_widget(form.password.second, {attr:{'class':'form-control form-control-a'}})}}
+
+              <div class="validation"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6 mb-3">
+              <div class="form-group">
+              <label>Ville</label>
+              {# <input class="form-control form-control-a" data-msg="Please enter a valid email" data-rule="email"  type="text"> #}
+{{form_widget(form.city, {attr:{'class':'form-control form-control-a'}})}}
+
+              <div class="validation"></div>
+              </div>
+            </div>
+            <div class="col-md-6 mb-3">
+              <div class="form-group">
+              <label for="">Code postal</label>
+              {# <input class="form-control form-control-a" data-msg="Please enter a valid email" data-rule="email" type="text"> #}
+{{form_widget(form.postalCode, {attr:{'class':'form-control form-control-a'}})}}
+
+              <div class="validation"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-12 mb-3">
+              <div class="form-group">
+                <label>Adresse</label>
+                {# <textarea  class="form-control" id="" ></textarea> #}
+{{form_widget(form.address, {attr:{'class':'form-control form-control-a'}})}}
+
+              <div class="validation"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-12">
+              <button class="btn btn-a" type="submit">Créer un compte</button>
+            </div>
+          </div>
+
+        </div>
+      {{form_end(form)}}
+        {# </form> #}
+      </div>
+      </div>
+    </div>
+    </div>
+</section>
+<!--/ Contact End /-->
+
+
+
+    {# <div class="container">
+      
       {{form_start(form)}}
       <div class="row">
           
@@ -74,5 +240,5 @@
       </div>
       <button class="btn btn-primary" type="submit">Enregistrer</button>
       {{form_end(form)}}
-    </div>
+    </div> #}
   {% endblock %}

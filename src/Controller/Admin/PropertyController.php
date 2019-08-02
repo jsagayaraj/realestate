@@ -55,19 +55,19 @@ class PropertyController extends AbstractController
 
 /********************************SHOW PROPERTY ***************************/
 
-  /**
-   * @Route("/showProperties", name="admin_property_list")
-   * 
-   */
-  public function showProperty(PropertyRepository $repo)
-  {
-    $property = $repo->findAll();
-    dump($property);
-    return $this->render("admin/property/showList.html.twig", [
-      'properties' => $property
-    ]);
+  // /**
+  //  * @Route("/showProperties", name="admin_property_list")
+  //  * 
+  //  */
+  // public function showProperty(PropertyRepository $repo)
+  // {
+  //   $property = $repo->findAll();
+  //   dump($property);
+  //   return $this->render("admin/property/showList.html.twig", [
+  //     'properties' => $property
+  //   ]);
 
-  }
+  // }
 
   /********************************EDIT PROPERTY ***************************/
 
@@ -119,7 +119,7 @@ class PropertyController extends AbstractController
           //return new Response('Suppression');
           $this->addFlash('success', 'Bien supprimé avec succés');
       }
-      return $this->redirectToRoute('admin_property_list');
+      return $this->redirectToRoute('admin');
   }
     
 }

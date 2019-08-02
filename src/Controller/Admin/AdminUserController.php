@@ -4,7 +4,10 @@ namespace App\Controller\Admin;
 
 use App\Entity\User;
 //use App\Form\UserType;
+use App\Repository\TypeRepository;
 use App\Repository\UserRepository;
+use App\Repository\CategoryRepository;
+use App\Repository\PropertyRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\HttpFoundation\Response;
@@ -13,21 +16,34 @@ use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
+/**
+ * @Route("/admin")
+ * 
+ */
+
 class AdminUserController extends AbstractController
 {
     /**
-     * @Route("/admin", name="admin")
+     * @Route("/", name="admin")
      * 
      */
-    public function adminPage()
+    public function adminPage(CategoryRepository $cat, TypeRepository $typeRepo, PropertyRepository $propertyRepo)
     {
-        return $this->render('admin/index.html.twig');
+        $categories = $cat->findAll();
+        $types = $typeRepo->findAll();
+        $properties = $propertyRepo->findAll();
+        return $this->render('admin/index.html.twig', [
+            'categories' => $categories,
+            'types' => $types,
+            'properties' => $properties
+
+        ]);
     }
 
 
 
     /**
-    * @Route("/admin/userList", name="admin_user_list")
+    * @Route("/userList", name="admin_user_list")
     */
 
     public function showUserList(UserRepository $repo)

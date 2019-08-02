@@ -13,11 +13,15 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
+
+/**
+ * @Route("/admin")
+ */
 class CategoryController extends AbstractController
 {
 
     /**
-     * @Route("/admin/addCategory", name="admin_add_category")
+     * @Route("/addCategory", name="admin_add_category")
      */
     public function createCat(Request $request, ObjectManager $em)
     {
@@ -39,16 +43,16 @@ class CategoryController extends AbstractController
     }
 
      /////////////////////////////SHOW LIST////////////////////////////
-    /**
-     * @Route("/admin/showCat", name="admin_show_cat")
-     */
-    public function showCat(CategoryRepository $repo)
-    {
-        $category = $repo->findAll();
-        return $this->render("admin/category/show.html.twig",[
-            'categories' => $category
-        ]);
-    }
+    // /**
+    //  * @Route("/show", name="admin_show_cat")
+    //  */
+    // public function showCat(CategoryRepository $repo)
+    // {
+    //     $category = $repo->findAll();
+    //    return $this->render("admin/index.html.twig",[
+    //         'categories' => $category
+    //     ]);
+    // }
 
 
 

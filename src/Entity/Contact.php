@@ -46,9 +46,9 @@ class Contact
    */
   private $message;
 
-    /**
-     * @var Property|null
-     */
+  /**
+  * @var Property|null
+  */
   private $property;
 
   
