@@ -306,7 +306,7 @@ class Property
         return $this;
     }
 
-    public function getSold(): ?bool
+    public function getSold(): ? bool
     {
         return $this->sold;
     }
