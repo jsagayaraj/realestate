@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le :  sam. 27 avr. 2019 à 06:40
+-- Généré le :  jeu. 08 août 2019 à 06:20
 -- Version du serveur :  5.7.24
 -- Version de PHP :  7.2.14
 
@@ -173,17 +173,23 @@ CREATE TABLE IF NOT EXISTS `user` (
   `status` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `is_active` tinyint(1) NOT NULL,
   `roles` longtext COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '(DC2Type:array)',
+  `confirmation_token` varchar(30) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `UNIQ_8D93D649E7927C74` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Déchargement des données de la table `user`
 --
 
-INSERT INTO `user` (`id`, `firstname`, `lastname`, `email`, `password`, `gender`, `address`, `city`, `postal_code`, `phone_number`, `status`, `is_active`, `roles`) VALUES
-(1, 'Sagayaraj', 'Joseph', 'bjsahay@gmail.com', '$2y$12$aCIfc/F5j4UXIlHRWrUOted3LT8Cy4Inw8ob0WDvUdK1bNj5triZO', 'Monsieur', '11 allée de l\'arlequin', 'nanterre', 92000, 767144163, 'admin', 1, 'a:1:{i:0;s:10:\"ROLE_ADMIN\";}'),
-(2, 'sylvie', 'joseph', 'sylvie@gmail.com', '$2y$12$zku8xY92lvNKmRPNT31Pd.D3DHX8OV3L56a4/oRy6f2g4iVxIpQ1i', 'Madame', '147 hello', 'pari', 75012, 21356487, 'user', 1, 'a:1:{i:0;s:9:\"ROLE_USER\";}');
+INSERT INTO `user` (`id`, `firstname`, `lastname`, `email`, `password`, `gender`, `address`, `city`, `postal_code`, `phone_number`, `status`, `is_active`, `roles`, `confirmation_token`) VALUES
+(1, 'Sagayaraj', 'Joseph', 'admin@test.com', '$2y$12$tFJLqk/0clAas6RvllRv.eOro2eWq22LhSfpUxF9E1DF3I/T7JtTm', 'Monsieur', '11 allée de l\'arlequin', 'nanterre', 92000, 767144163, 'admin', 1, 'a:1:{i:0;s:10:\"ROLE_ADMIN\";}', NULL),
+(7, 'navin123', 'joseph123', 'navin@gmail.com', 'testtest', 'Madame', 'allée de l\'arlequin', 'nanterre22', 95000, 12345000, 'user', 1, 'a:1:{i:0;s:9:\"ROLE_USER\";}', NULL),
+(8, 'saga', 'joseph', 'saga@gmail.com', '$2y$12$ROOxik.f1UKDq/oxvcfigefwDK2gSoQ3bVB1.j.yjzACd/jKkcrEW', 'Madame', '11 allée de l\'arlequin', 'nanterre', 31321, 32136654, 'user', 1, 'a:1:{i:0;s:9:\"ROLE_USER\";}', NULL),
+(9, 'user', 'user', 'user@test.com', '$2y$12$tFJLqk/0clAas6RvllRv.eOro2eWq22LhSfpUxF9E1DF3I/T7JtTm', 'Monsieur', '11 allée de l\'arlequin', 'nanterre', 95000, 178547008, 'user', 1, 'a:1:{i:0;s:9:\"ROLE_USER\";}', NULL),
+(10, 'hello', 'hello', 'hello@gmail.com', '$2y$12$Nh5/fO./EO4vZc/hWoZJR.68Gbok2qBedduX0F3LckmR113glMeZi', 'Monsieur', 'hello', 'hello', 32135, 123456, 'user', 1, 'a:1:{i:0;s:9:\"ROLE_USER\";}', NULL),
+(18, 'joe', 'dow', 'joe@gmail.com', '$2y$12$05/EnW88sNvy8kN6sFnXlO67xSNTJ0cTlve1ByjXjClm90s0D6vz6', 'Monsieur', 'paris', 'paris', 75012, 123456789, 'user', 1, 'a:1:{i:0;s:9:\"ROLE_USER\";}', ''),
+(19, 'sylvie', 'jos', 'sylvie@gmail.com', '$2y$12$RfuNyAwdeIV1gTX/vDeV6uG5XFICgu28WIND20/5GcGzVd8UFzLne', 'Madame', 'paris', 'paris', 45612, 12457896, 'user', 0, 'a:1:{i:0;s:9:\"ROLE_USER\";}', 'R9F1tyOvgbEtewlAzZEWgltWhRCCjM');
 
 --
 -- Contraintes pour les tables déchargées
